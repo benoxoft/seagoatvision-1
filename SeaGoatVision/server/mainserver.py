@@ -31,10 +31,11 @@ logger = log.get_logger(__name__)
 config = None
 path = None
 # Import required RPC modules
+
 from controller import jsonrpc_server
+from controller import mock_jsonrpc_server
 
-
-def run(p_port=None, verbose=False, config_path=None):
+def run(p_port=None, verbose=False, config_path=None, mock=False):
     global config
     config = Configuration(config_path=config_path)
     path = config.get_log_file_path()
@@ -58,7 +59,10 @@ def run(p_port=None, verbose=False, config_path=None):
         port = p_port
 
     # Create and register the service
-    server = jsonrpc_server.JsonrpcServer(port)
+    if mock:
+        server = mock_jsonrpc_server.MockJsonrpcServer(port)
+    else:
+        server = jsonrpc_server.JsonrpcServer(port)
     try:
         server.register()
     except BaseException as e:

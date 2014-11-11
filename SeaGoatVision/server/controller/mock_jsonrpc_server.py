@@ -3,8 +3,13 @@ import inspect
 
 class MockJsonrpcServer():
     def __init__(self, port):
+        self.server = SimpleJSONRPCServer(('', port), logRequests=False)
+
+    def close(self):
         pass
-        #self.server = SimpleJSONRPCServer(('', port), logRequests=False)
+    
+    def run(self):
+        self.server.serve_forever()
 
     def register(self):
         # register all rpc callback
@@ -15,104 +20,104 @@ class MockJsonrpcServer():
             self.server.register_function(method, name)
             
     def add_image_observer(self, observer, execution_name, filter_name):
-        pass
+        return "add_image_observer(self, observer, execution_name, filter_name)"
 
     def add_output_observer(self, execution_name):
-        pass
+        return "add_output_observer(self, execution_name)"
 
     def cmd_to_media(self, media_name, cmd, value):
-        pass
+        return "cmd_to_media(self, media_name, cmd, value)"
 
     def cut_video(self, video_name, begin, end, cut_video_name):
-        pass
+        return "cut_video(self, video_name, begin, end, cut_video_name)"
 
     def delete_filterchain(self, filterchain_name):
-        pass
+        return "delete_filterchain(self, filterchain_name)"
 
     def get_count_keys(self):
-        pass
+        return "get_count_keys(self)"
 
     def get_execution_info(self, execution_name):
-        pass
+        return "get_execution_info(self, execution_name)"
 
     def get_execution_list(self):
-        pass
+        return "get_execution_list(self)"
 
     def get_default_media_name(self):
-        pass
+        return "get_default_media_name(self)"
 
     def get_filter_list(self):
-        pass
+        return "get_filter_list(self)"
 
     def get_filterchain_info(self, filterchain_name):
-        pass
+        return "get_filterchain_info(self, filterchain_name)"
 
     def get_filterchain_list(self):
-        pass
+        return "get_filterchain_list(self)"
 
     def get_fps_execution(self, execution_name):
-        pass
+        return "get_fps_execution(self, execution_name)"
 
     def get_info_media(self, media_name):
-        pass
+        return "get_info_media(self, media_name)"
 
     def get_lst_old_record_historic(self):
-        pass
+        return "get_lst_old_record_historic(self)"
 
     def get_lst_record_historic(self):
-        pass
+        return "get_lst_record_historic(self)"
 
     def get_media_list(self):
-        pass
+        return "get_media_list(self)"
 
     def get_param_filterchain(self, execution_name, filter_name, param_name):
-        pass
+        return "get_param_filterchain(self, execution_name, filter_name, param_name)"
 
     def get_param_media(self, media_name, param_name):
-        pass
+        return "get_param_media(self, media_name, param_name)"
 
     def get_params_filterchain(self, execution_name, filter_name, param_name):
-        pass
+        return "get_params_filterchain(self, execution_name, filter_name, param_name)"
 
     def get_params_media(self, media_name):
-        pass
+        return "get_params_media(self, media_name)"
 
     def is_connected(self):
-        pass
+        return "is_connected(self)"
 
     def modify_filterchain(self,
                            old_filterchain_name,
                            new_filterchain_name,
                            lst_str_filters,
                            default_media):
-        pass
+        return "modify_filterchain(self, old_filterchain_name, new_filterchain_name, lst_str_filters, default_media)"
 
     def reload_filter(self, filter_name):
-        pass
+        return "reload_filter(self, filter_name)"
 
     def remove_image_observer(self, observer, execution_name, filter_name):
-        pass
+        return "remove_image_observer(self, observer, execution_name, filter_name)"
 
     def remove_output_observer(self, execution_name):
-        pass
+        return "remove_output_observer(self, execution_name)"
 
     def reset_param(self, execution_name, filter_name, param_name):
-        pass
+        return "reset_param(self, execution_name, filter_name, param_name)"
 
     def reset_param_media(self, media_name, param_name):
-        pass
+        return "reset_param_media(self, media_name, param_name)"
 
     def save_params(self, execution_name):
-        pass
+        return "save_params(self, execution_name)"
 
     def save_params_media(self, media_name):
-        pass
+        return "save_params_media(self, media_name)"
 
     def set_as_default_param(self, execution_name, filter_name, param_name):
-        pass
+        return "set_as_default_param(self, execution_name, filter_name, param_name)"
 
     def set_as_default_param_media(self, media_name, param_name):
-        pass
+        return "set_as_default_param_media(self, media_name, param_name)"
 
     def set_image_observer(self,
                            observer,
@@ -120,7 +125,7 @@ class MockJsonrpcServer():
                            filter_name_old,
                            filter_name_new,
                            new_observer=None):
-        pass
+        return "set_image_observer(self, observer, execution_name, filter_name_old, filter_name_new, new_observer=None)"
 
     def start_filterchain_execution(self,
                                     execution_name,
@@ -128,31 +133,31 @@ class MockJsonrpcServer():
                                     filterchain_name,
                                     file_name,
                                     is_client_manager):
-        pass
+        return "start_filterchain_execution(self, execution_name, media_name, filterchain_name, file_name, is_client_manager)"
 
     def start_record(self, media_name, path, options):
-        pass
+        return "start_record(self, media_name, path, options)"
 
     def stop_filterchain_execution(self, execution_name):
-        pass
+        return "stop_filterchain_execution(self, execution_name)"
 
     def stop_record(self, media_name):
-        pass
+        return "stop_record(self, media_name)"
 
     def subscribe(self, key):
-        pass
+        return "subscribe(self, key)"
 
     def update_param(self, execution_name, filter_name, param_name, value):
-        pass
+        return "update_param(self, execution_name, filter_name, param_name, value)"
 
     def update_param_media(self, media_name, param_name, value):
-        pass
+        return "update_param_media(self, media_name, param_name, value)"
 
     def upload_filterchain(self, filterchain_name, s_file_contain):
-        pass
+        return "upload_filterchain(self, filterchain_name, s_file_contain)"
 
     def default_call(self):
-        pass
+        return "default_call(self)"
     
 if __name__ == '__main__':
     x = MockJsonrpcServer(9000)

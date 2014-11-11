@@ -46,6 +46,11 @@ if __name__ == '__main__':
         type=str,
         help="specify config file",
         default=None)
+    parser.add_argument(
+        "-m",
+        '--mock',
+        action="store_true",
+        help="Start mock server")
     args = parser.parse_args(args=argument)
     port = args.port if args.port else None
-    run(p_port=port, verbose=args.verbose, config_path=args.config)
+    run(p_port=port, verbose=args.verbose, config_path=args.config, mock=args.mock)
