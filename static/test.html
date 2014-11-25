@@ -1,0 +1,29 @@
+<!-- File: chapter1/angularjs-hello-world.html -->
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js">
+</script>
+</head>
+<body ng-controller="myCtrl">
+<script type="text/javascript">
+document.write("TEST");
+angular.module('myApp', [])
+.controller('myCtrl', function ($scope, $http) {
+    $scope.testt = function(execution_name) {
+        $http.get("/api/get_execution_info/" + execution_name).success(function(data, status) {
+            console.log(data);
+        });};
+    $scope.testt2 = function() {
+        $http.get("/api/testt").success(function(data, status) {
+            console.log("yay");
+        });
+    } ;
+console.log($scope.testt("execution_name"));
+$scope.testt2();
+
+});
+
+</script>
+</body>
+</html>

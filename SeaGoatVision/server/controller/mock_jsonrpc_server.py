@@ -22,6 +22,10 @@ class MockJsonrpcServer():
                 continue
             self.server.register_function(method, name)
             
+    def testt(self):
+        print "TESTT CALLED"
+        return "HELLO"
+    
     def add_image_observer(self, observer, execution_name, filter_name):
         return True
 
