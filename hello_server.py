@@ -36,7 +36,7 @@ def cut_video(video_name, begin, end, cut_video_name):
 def delete_filterchain(filterchain_name):
     return json.dumps(c.delete_filterchain(filterchain_name))
 
-@app.route('/api/<get_count_keys>')
+@app.route('/api/get_count_keys')
 def get_count_keys():
     return json.dumps(c.get_count_keys())
 
@@ -153,7 +153,7 @@ def set_image_observer(observer,
                         filter_name_old,
                         filter_name_new,
                         new_observer=None):
-    return json.dumps(c.set_image_observer(observer, execution_name, filter_name_old, filter_name_new, new_observer=None))
+    return json.dumps(c.set_image_observer(observer, execution_name, filter_name_old, filter_name_new, new_observer))
 
 @app.route('/api/start_filterchain_execution/<execution_name>/<media_name>/<filterchain_name>/<file_name>/<is_client_manager>')
 def start_filterchain_execution(execution_name,

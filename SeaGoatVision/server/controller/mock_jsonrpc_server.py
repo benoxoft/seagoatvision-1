@@ -4,6 +4,10 @@ import inspect
 from jsonrpclib.SimpleJSONRPCServer import SimpleJSONRPCServer
 import inspect
 
+null = None
+false = False
+true = True
+
 class MockJsonrpcServer():
     def __init__(self, port):
         self.server = SimpleJSONRPCServer(('', port), logRequests=False)

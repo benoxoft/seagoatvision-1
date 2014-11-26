@@ -1,5 +1,5 @@
 
-angular.module('Seagoat', []).controller('api', function ($scope, $http) {
+angular.module('seagoat', []).controller('api', function ($scope, $http) {
 
     $scope.testt = function() {
         $http.get("/api/testt")
@@ -461,6 +461,51 @@ angular.module('Seagoat', []).controller('api', function ($scope, $http) {
         })
         .error(function(data, status, headers, config) {
             // TODO
-        })
+        });
+
+    $scope.test_calls = function() {
+        $scope.add_image_observer("observer", "execution_name", "filter_name");
+        $scope.add_output_observer("execution_name");
+        $scope.cmd_to_media("media_name", "cmd", "value");
+        $scope.cut_video("video_name", "begin", "end", "cut_video_name");
+        $scope.delete_filterchain("filterchain_name");
+        $scope.get_count_keys();
+        $scope.get_execution_info("execution_name");
+        $scope.get_execution_list();
+        $scope.get_default_media_name();
+        $scope.get_filter_list();
+        $scope.get_filterchain_info("filterchain_name");
+        $scope.get_filterchain_list();
+        $scope.get_fps_execution("execution_name");
+        $scope.get_info_media("media_name");
+        $scope.get_lst_old_record_historic();
+        $scope.get_lst_record_historic();
+        $scope.get_media_list();
+        $scope.get_param_filterchain("execution_name", "filter_name", "param_name");
+        $scope.get_param_media("media_name", "param_name");
+        $scope.get_params_filterchain("execution_name", "filter_name", "param_name");
+        $scope.get_params_media("media_name");
+        $scope.is_connected();
+        $scope.modify_filterchain("old_filterchain_name", "new_filterchain_name", "lst_str_filters", "default_media");
+        $scope.reload_filter("filter_name");
+        $scope.remove_image_observer("observer", "execution_name", "filter_name");
+        $scope.remove_output_observer("execution_name");
+        $scope.reset_param("execution_name", "filter_name", "param_name");
+        $scope.reset_param_media("media_name", "param_name");
+        $scope.save_params("execution_name");
+        $scope.save_params_media("media_name");
+        $scope.set_as_default_param("execution_name", "filter_name", "param_name");
+        $scope.set_as_default_param_media("media_name", "param_name");
+        $scope.set_image_observer("observer", "execution_name", "filter_name_old", "filter_name_new", "new_observer");
+        $scope.start_filterchain_execution("execution_name", "media_name", "filterchain_name", "file_name", "is_client_manager");
+        $scope.start_record("media_name", "path", "options");
+        $scope.stop_filterchain_execution("execution_name");
+        $scope.stop_record("media_name");
+        $scope.subscribe("key");
+        $scope.update_param("execution_name", "filter_name", "param_name", "value");
+        $scope.update_param_media("media_name", "param_name", "value");
+        $scope.upload_filterchain("filterchain_name", "s_file_contain");
     };
+    $scope.test_calls();
+};
 
