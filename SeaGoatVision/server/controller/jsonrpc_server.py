@@ -99,20 +99,24 @@ class JsonrpcServer():
         self.server.shutdown()
 
     def get_params_filterchain(self, execution_name, filter_name):
+        print "call get_params_filterchain"
         lst_param = self.cmd_handler.get_params_filterchain(
             execution_name, filter_name)
         return self._serialize_param(lst_param)
 
     def get_param_filterchain(self, execution_name, filter_name, param_name):
+        print "call get_param_filterchain"
         param = self.cmd_handler.get_param_filterchain(
             execution_name, filter_name, param_name)
         return self._serialize_param(param)
 
     def get_params_media(self, media_name):
+        print "call get_params_media"
         lst_param = self.cmd_handler.get_params_media(media_name)
         return self._serialize_param(lst_param)
 
     def get_param_media(self, media_name, param_name):
+        print "call get_param_media"
         param = self.cmd_handler.get_param_media(media_name, param_name)
         return self._serialize_param(param)
 
@@ -130,6 +134,7 @@ class JsonrpcServer():
     # OBSERVATOR ################################
     #
     def add_image_observer(self, execution_name, filter_name):
+        print "call add_image_observer"
         key = keys.create_unique_exec_filter_name(execution_name, filter_name)
         observer = self._cb_send_image(key)
         if self.cmd_handler.add_image_observer(observer, execution_name,
@@ -141,6 +146,7 @@ class JsonrpcServer():
 
     def set_image_observer(self, execution_name, filter_name_old,
                            filter_name_new):
+        print "call set_image_observer"
         old_key = keys.create_unique_exec_filter_name(
             execution_name, filter_name_old)
         new_key = keys.create_unique_exec_filter_name(
@@ -158,6 +164,7 @@ class JsonrpcServer():
         return False
 
     def remove_image_observer(self, execution_name, filter_name):
+        print "call remove_image_observer"
         key = keys.create_unique_exec_filter_name(execution_name, filter_name)
         observer = self.dct_observer.get(key, None)
         if observer is None:

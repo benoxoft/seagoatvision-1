@@ -106,6 +106,7 @@ class CmdHandler:
     # CLIENT ##################################
     #
     def is_connected(self):
+        print "call is_connected"
         self._post_command_(locals())
         return True
 
@@ -116,6 +117,7 @@ class CmdHandler:
             # TODO change start_filterchain_execution to start_execution
             self, execution_name, media_name, filterchain_name, file_name,
             is_client_manager):
+        print "call start_filterchain_execution"
         self._post_command_(locals())
         execution = self.dct_exec.get(execution_name, None)
 
@@ -179,6 +181,7 @@ class CmdHandler:
         return execution_name
 
     def stop_filterchain_execution(self, execution_name):
+        print "call stop_filterchain_execution"
         # TODO change stop_filterchain_execution to stop_execution
         self._post_command_(locals())
         execution = self.dct_exec.get(execution_name, None)
@@ -220,10 +223,12 @@ class CmdHandler:
         return True
 
     def get_execution_list(self):
+        print "call get_execution_list"
         self._post_command_(locals())
         return self.dct_exec.keys()
 
     def get_execution_info(self, execution_name):
+        print "call get_execution_info"
         self._post_command_(locals())
         exec_info = self.dct_exec.get(execution_name, None)
         if not exec_info:
@@ -235,6 +240,7 @@ class CmdHandler:
                 KEY_FILTERCHAIN: exec_info[KEY_FILTERCHAIN].get_name()}
 
     def get_fps_execution(self, execution_name):
+        print "call get_fps_execution"
         # self._post_command_(locals())
         media = self._get_media(execution_name=execution_name)
         if not media:
@@ -245,15 +251,18 @@ class CmdHandler:
     # MEDIA ###################################
     #
     def get_media_list(self):
+        print "call get_media_list"
         self._post_command_(locals())
         return {name: self.resource.get_media(name).get_type_media()
                 for name in self.resource.get_media_name_list()}
 
     def get_default_media_name(self):
+        print "call get_default_media_name"
         self._post_command_(locals())
         return self.config.get_default_media_name()
 
     def cmd_to_media(self, media_name, cmd, value):
+        print "call cmd_to_media"
         # don't print when it's command frame_media, because it's spam
         if cmd != keys.get_key_media_frame():
             self._post_command_(locals())
@@ -269,6 +278,7 @@ class CmdHandler:
         return media.do_cmd(cmd, value)
 
     def get_info_media(self, media_name):
+        print "call get_info_media"
         self._post_command_(locals())
         media = self._get_media(media_name=media_name)
         if not media:
@@ -276,6 +286,7 @@ class CmdHandler:
         return media.get_info()
 
     def start_record(self, media_name, path, options):
+        print "call start_record"
         self._post_command_(locals())
         """
         options can be like this
@@ -300,6 +311,7 @@ class CmdHandler:
         return media.start_record(path=path, options=options)
 
     def stop_record(self, media_name):
+        print "call stop_record"
         self._post_command_(locals())
         media = self._get_media(media_name=media_name)
         if not media:
@@ -329,6 +341,7 @@ class CmdHandler:
         return status
 
     def get_lst_old_record_historic(self):
+        print "call get_lst_old_record_historic"
         self._post_command_(locals())
         root_dir = self.old_rec_dir_path
         if not root_dir:
@@ -349,22 +362,27 @@ class CmdHandler:
         return lst_old_record_historic
 
     def get_lst_record_historic(self):
+        print "call get_lst_record_historic"
         self._post_command_(locals())
         return self.lst_record_historic
 
     def get_count_keys(self):
+        print "call get_count_keys"
         self._post_command_(locals())
         return self.count_keys
 
     def get_params_media(self, media_name):
+        print "call get_params_media"
         self._post_command_(locals())
         return self._get_param_media(media_name)
 
     def get_param_media(self, media_name, param_name):
+        print "get_param_media"
         self._post_command_(locals())
         return self._get_param_media(media_name, param_name)
 
     def update_param_media(self, media_name, param_name, value):
+        print "call update_param_media"
         # self._post_command_(locals())
         # param_name can be a list or string
         param = self._get_param_media(media_name, param_name)
@@ -375,6 +393,7 @@ class CmdHandler:
         return True
 
     def reset_param_media(self, media_name, param_name):
+        print "call reset_param_media"
         self._post_command_(locals())
         # param_name can be a list or string
         lst_param = self._get_lst_param_media(media_name, param_name)
@@ -387,6 +406,7 @@ class CmdHandler:
         return True
 
     def set_as_default_param_media(self, media_name, param_name):
+        print "call set_as_default_param_media"
         self._post_command_(locals())
         # param_name can be a list or string
         lst_param = self._get_lst_param_media(media_name, param_name)
@@ -399,6 +419,7 @@ class CmdHandler:
         return True
 
     def save_params_media(self, media_name):
+        print "call save_params_media"
         self._post_command_(locals())
         media = self._get_media(media_name=media_name)
         if not media:
@@ -406,6 +427,7 @@ class CmdHandler:
         return self.config.write_media(media)
 
     def cut_video(self, video_name, begin, end, cut_video_name):
+        print "call cut_video"
         self._post_command_(locals())
         if not os.path.isfile(video_name):
             log.print_function(logger.error,
@@ -427,6 +449,7 @@ class CmdHandler:
     # OBSERVER  #################################
     #
     def add_image_observer(self, observer, execution_name, filter_name):
+        print "call add_image_observer"
         """
             Inform the server what filter we want to observe
             Param :
@@ -451,6 +474,7 @@ class CmdHandler:
                 - string, filter_name_old , filter to replace
                 - string, filter_name_new , filter to use
         """
+        print "call set_image_observer"
         if new_observer is None:
             new_observer = observer
         self._post_command_(locals())
@@ -474,6 +498,7 @@ class CmdHandler:
                 - string, execution_name to select an execution
                 - string, filter_name , filter to remove
         """
+        print "call remove_image_observer"
         self._post_command_(locals())
         filterchain = self._get_filterchain(execution_name)
         if not filterchain:
@@ -485,6 +510,7 @@ class CmdHandler:
             attach the output information of execution to tcp_server
             supported only one observer. Add observer to tcp_server
         """
+        print "call add_output_observer"
         self._post_command_(locals())
         filterchain = self._get_filterchain(execution_name)
         if not filterchain:
@@ -503,6 +529,8 @@ class CmdHandler:
             remove the output information of execution to tcp_server
             supported only one observer. remove observer to tcp_server
         """
+        print "call remove_output_observer"
+        
         self._post_command_(locals())
         filterchain = self._get_filterchain(execution_name)
         if not filterchain:
@@ -522,6 +550,7 @@ class CmdHandler:
     # PUBLISHER  ##################################
     #
     def subscribe(self, key):
+        print "call subscribe"
         self.count_keys[key] += 1
         self.publisher.publish(keys.get_key_count(), self.count_keys)
         return self.publisher.subscribe(key)
@@ -534,6 +563,7 @@ class CmdHandler:
     # FILTERCHAIN  ################################
     #
     def reload_filter(self, filter_name):
+        print "call reload_filter"
         self._post_command_(locals())
         o_filter = self.resource.reload_filter(filter_name)
         if o_filter is None:
@@ -545,22 +575,26 @@ class CmdHandler:
         return True
 
     def get_params_filterchain(self, execution_name, filter_name):
+        print "call get_params_filterchain"
         # get actual filter from execution
         # TODO search information from configuration if execution not exist
         self._post_command_(locals())
         return self._get_param_filter(execution_name, filter_name)
 
     def get_param_filterchain(self, execution_name, filter_name, param_name):
+        print "call get_param_filterchain"
         # get actual filter from execution
         # TODO search information from configuration if execution not exist
         self._post_command_(locals())
         return self._get_param_filter(execution_name, filter_name, param_name)
 
     def get_filterchain_info(self, filterchain_name):
+        print "call get_filterchain_info"
         self._post_command_(locals())
         return self.resource.get_filterchain_info(filterchain_name)
 
     def update_param(self, execution_name, filter_name, param_name, value):
+        print "call update_param"
         # self._post_command_(locals())
         param = self._get_param_filter(execution_name, filter_name, param_name)
         if not param:
@@ -573,6 +607,7 @@ class CmdHandler:
         return True
 
     def reset_param(self, execution_name, filter_name, param_name):
+        print "call reset_param"
         self._post_command_(locals())
         lst_param = self._get_lst_param_filter(execution_name,
                                                filter_name,
@@ -588,6 +623,7 @@ class CmdHandler:
         return True
 
     def set_as_default_param(self, execution_name, filter_name, param_name):
+        print "call set_as_default_param"
         self._post_command_(locals())
         lst_param = self._get_lst_param_filter(execution_name,
                                                filter_name,
@@ -605,6 +641,7 @@ class CmdHandler:
 
     def save_params(self, execution_name):
         """Force serialization and overwrite config"""
+        print "save_params"
         self._post_command_(locals())
         filterchain = self._get_filterchain(execution_name)
         if not filterchain:
@@ -612,21 +649,25 @@ class CmdHandler:
         return self.config.write_filterchain(filterchain)
 
     def get_filterchain_list(self):
+        print "call get_filterchain_list"
         self._post_command_(locals())
         return self.resource.get_filterchain_list()
 
     def upload_filterchain(self, filterchain_name, s_file_contain):
+        print "call upload_filterchain"
         self._post_command_(locals())
         return self.resource.upload_filterchain(filterchain_name,
                                                 s_file_contain)
 
     def delete_filterchain(self, filterchain_name):
+        print "call delete_filterchain"
         self._post_command_(locals())
         return self.resource.delete_filterchain(filterchain_name)
 
     def modify_filterchain(self, old_filterchain_name,
                            new_filterchain_name, lst_str_filters,
                            default_media):
+        print "call modify_filterchain"
         self._post_command_(locals())
         return self.resource.modify_filterchain(old_filterchain_name,
                                                 new_filterchain_name,
@@ -637,6 +678,7 @@ class CmdHandler:
     # FILTER  ##################################
     #
     def get_filter_list(self):
+        print "call get_filter_list"
         self._post_command_(locals())
         return self.resource.get_filter_info_list()
 

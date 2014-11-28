@@ -430,3 +430,4 @@ class MockSigJsonrpcServer():
 
     def default_call(self):
         return "default_call(self)"
+
