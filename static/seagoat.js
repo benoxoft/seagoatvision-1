@@ -1,4 +1,6 @@
-function api ($scope, $http) {
+
+var myApp = angular.module('myApp', ['ngDraggable']);
+myApp.controller('api', ['$scope', '$http', function($scope, $http) {
 	$scope.default_success = function(cb) {
 		return function(data, status) {
 			console.log(data, status);
@@ -311,5 +313,82 @@ function api ($scope, $http) {
         $scope.upload_filterchain("filterchain_name", "s_file_contain", $scope.default_test_callback);
     };
     //$scope.test_calls();
-    
-};
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//																		Ajout Raph
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	//$scope.init=function(){
+		$scope.filters=[
+			{name:'a',file:'a'},
+			{name:'b',file:'b'},
+			{name:'c',file:'c'}
+		];
+		
+		$scope.executions=[
+			{
+				name:'Execution 1',
+				chainFilter:{
+					name:'Chain filter 1',
+					filters:[
+						{name:'filter 1',executionCode:'blablaba',workingCopy:'blablabla',language:'c',params:[
+							{name:'Group 1',type:'group',value:[
+								{name:'Param 1',type:'text',value:'1'},
+								{name:'Param 2',type:'text',value:'2'},
+								{name:'Param 3',type:'text',value:'3'}
+							]},
+							{name:'Group 2',type:'group',value:[
+								{name:'Param 1',type:'text',value:'1'},
+								{name:'Param 2',type:'text',value:'2'}
+							]},
+							{name:'Param 1',type:'text',value:'1'}
+						]},
+						{name:'filter 2',executionCode:'blablaba',workingCopy:'blablabla',language:'c',params:[
+							{name:'Group 1',type:'group',value:[
+								{name:'Param 1',type:'text',value:'1'},
+								{name:'Param 2',type:'text',value:'2'}
+							]},
+							{name:'Param 1',type:'text',value:'1'}
+						]},
+						{name:'filter 3',executionCode:'blablaba',workingCopy:'blablabla',language:'c',params:[
+							{name:'Group 1',type:'group',value:[
+								{name:'Param 1',type:'text',value:'1'},
+								{name:'Param 2',type:'text',value:'2'},
+								{name:'Param 3',type:'text',value:'3'}
+							]},
+							{name:'Param 1',type:'text',value:'1'}
+						]}
+					]}
+			},
+			{
+				name:'Execution 2',
+				chainFilter:{
+					name:'Chain filter 2',
+					filters:[
+						{name:'filter 1',executionCode:'blablaba',workingCopy:'blablabla',language:'c',params:[
+							{name:'Group 1',type:'group',value:[
+								{name:'Param 1',type:'text',value:'1'},
+								{name:'Param 2',type:'text',value:'2'}
+							]},
+							{name:'Param 1',type:'text',value:'1'}
+						]},
+						{name:'filter 2',executionCode:'blablaba',workingCopy:'blablabla',language:'c',params:[
+							{name:'Group 1',type:'group',value:[
+								{name:'Param 1',type:'text',value:'1'},
+								{name:'Param 2',type:'text',value:'2'},
+								{name:'Param 3',type:'text',value:'3'}
+							]},
+							{name:'Param 1',type:'text',value:'1'}
+						]}
+					]}
+			},
+		];
+		
+		$scope.activeExecution=0;
+		$scope.selectedFilter=-1;
+	//};
+	
+  	$scope.onDropComplete=function(data,ind,evt){
+		$scope.executions[$scope.activeExecution].chainFilter.filters.splice(ind,0,{name:data});
+	};
+}]);
