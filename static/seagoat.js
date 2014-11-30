@@ -8,7 +8,7 @@ function api ($scope, $http) {
 	};
 	
 	$scope.default_error = function(cb) {
-		return function(data, status) {
+		return function(data, status, headers, config) {
 			console.log(data, status, headers, config);
 			cb(data, status);
 		};
