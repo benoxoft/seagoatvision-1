@@ -1,15 +1,12 @@
-<!-- File: chapter1/angularjs-hello-world.html -->
-<!DOCTYPE html>
-<html ng-app="seagoat">
-<head>
-<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
-<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-animate.min.js"></script>
-<script src="static/seagoat.js"></script>
-</head>
-<body ng-controller="api">
-<script type="text/javascript">
-$scope.testt();
-
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js"></script>
+<script language="javascript">
 </script>
+<script src="static/callback.js"></script>
+<script src="static/seagoat.js"></script>
+<head>
+</head>
+<body ng-app="" ng-controller="api">
+	<button ng-controller="callback" type="button" ng-click="testt(testt_cb)" >Test</button>
 </body>
 </html>
