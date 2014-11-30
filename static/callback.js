@@ -1,9 +1,3 @@
-function callback($scope) {
-	$scope.testt_cb = function(data, status) {
-		console.log("penis");
-	};
-}
-
 function callback ($scope) {
 
     $scope.testt_cb = function(data, status) {

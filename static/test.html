@@ -12,47 +12,161 @@
 <body ng-app="" ng-controller="api">
 	<div ng-controller="callback">
 		<button type="button" ng-click="testt(testt_cb)" >Test</button><br>
-		<button type="button" ng-click="add_image_observer(add_image_observer_cb)" >add_image_observer</button><br>
-		<button type="button" ng-click="add_output_observer(add_output_observer_cb)" >add_output_observer</button><br>
-		<button type="button" ng-click="cmd_to_media(cmd_to_media_cb)" >cmd_to_media</button><br>
-		<button type="button" ng-click="cut_video(cut_video_cb)" >Test</button><br>
-		<button type="button" ng-click="delete_filterchain(delete_filterchain_cb)" >delete_filterchain</button><br>
-		<button type="button" ng-click="get_count_keys(get_count_keys_cb)" >get_count_keys</button><br>
-		<button type="button" ng-click="get_execution_info(get_execution_info_cb)" >get_execution_info</button><br>
-		<button type="button" ng-click="get_execution_list(get_execution_list_cb)" >get_execution_list</button><br>
-		<button type="button" ng-click="get_default_media_name(get_default_media_name_cb)" >get_default_media_name</button><br>
-		<button type="button" ng-click="get_filter_list(get_filter_list_cb)" >get_filter_list</button><br>
-		<button type="button" ng-click="get_filterchain_info(get_filterchain_info_cb)" >get_filterchain_info</button><br>
-		<button type="button" ng-click="get_filterchain_list(get_filterchain_list_cb)" >get_filterchain_list</button><br>
-		<button type="button" ng-click="get_fps_execution(get_fps_execution_cb)" >get_fps_execution</button><br>
-		<button type="button" ng-click="get_info_media(get_info_media_cb)" >get_info_media</button><br>
-		<button type="button" ng-click="get_lst_old_record_historic(get_lst_old_record_historic_cb)" >get_lst_old_record_historic</button><br>
-		<button type="button" ng-click="get_lst_record_historic(get_lst_record_historic_cb)" >get_lst_record_historic</button><br>
-		<button type="button" ng-click="get_media_list(get_media_list_cb)" >get_media_list</button><br>
-		<button type="button" ng-click="get_param_filterchain(get_param_filterchain_cb)" >get_param_filterchain</button><br>
-		<button type="button" ng-click="get_param_media(get_param_media_cb)" >get_param_media</button><br>
-		<button type="button" ng-click="get_params_filterchain(get_params_filterchain_cb)" >get_params_filterchain</button><br>
-		<button type="button" ng-click="get_params_media(get_params_media_cb)" >get_params_media</button><br>
-		<button type="button" ng-click="is_connected(is_connected_cb)">is_connected</button><br>
-		<button type="button" ng-click="modify_filterchain(modify_filterchain_cb)" >modify_filterchain</button><br>
-		<button type="button" ng-click="reload_filter(reload_filter_cb)" >reload_filter</button><br>
-		<button type="button" ng-click="remove_image_observer(remove_image_observer_cb)" >remove_image_observer</button><br>
-		<button type="button" ng-click="remove_output_observer(remove_output_observer_cb)" >remove_output_observer</button><br>
-		<button type="button" ng-click="reset_param(reset_param_cb)" >reset_param</button><br>
-		<button type="button" ng-click="reset_param_media(reset_param_media_cb)" >reset_param_media</button><br>
-		<button type="button" ng-click="save_params(save_params_cb)" >save_params</button><br>
-		<button type="button" ng-click="save_params_media(save_params_media_cb)" >save_params_media</button><br>
-		<button type="button" ng-click="set_as_default_param(set_as_default_param_cb)" >set_as_default_param</button><br>
-		<button type="button" ng-click="set_as_default_param_media(set_as_default_param_media_cb)" >set_as_default_param_media</button><br>
-		<button type="button" ng-click="set_image_observer(set_image_observer_cb)" >set_image_observer</button><br>
-		<button type="button" ng-click="start_filterchain_execution(start_filterchain_execution_cb)" >start_filterchain_execution</button><br>
-		<button type="button" ng-click="start_record(start_record_cb)" >start_record</button><br>
-		<button type="button" ng-click="stop_filterchain_execution(stop_filterchain_execution_cb)" >stop_filterchain_execution</button><br>
-		<button type="button" ng-click="stop_record(stop_record_cb)" >stop_record</button><br>
-		<button type="button" ng-click="subscribe(subscribe_cb)" >subscribe</button><br>
-		<button type="button" ng-click="update_param(update_param_cb)" >update_param</button><br>
-		<button type="button" ng-click="update_param_media(update_param_media_cb)" >update_param_media</button><br>
-		<button type="button" ng-click="upload_filterchain(upload_filterchain_cb)" >Test</button><br>
+		
+		<button type="button" ng-click="add_image_observer(observer, execution_name, filter_name, add_image_observer_cb)" >add_image_observer</button>
+		observer: <input type="text" ng-model="observer">
+		execution_name: <input type="text" ng-model="execution_name">
+		filter_name: <input type="text" ng-model="filter_name"><br>
+		
+		<button type="button" ng-click="add_output_observer(execution_name, add_output_observer_cb)" >add_output_observer</button>
+		execution_name: <input type="text" ng-model="execution_name">
+		<br>
+		
+		<button type="button" ng-click="cmd_to_media(media_name, cmd, value, cmd_to_media_cb)" >cmd_to_media</button>
+		media_name: <input type="text" ng-model="media_name">
+		cmd: <input type="text" ng-model="cmd">
+		value: <input type="text" ng-model="value">
+		<br>
+		<button type="button" ng-click="cut_video(video_name, begin, end, cut_video_name, cut_video_cb)" >cut_video</button>
+		video_name: <input type="text" ng-model="video_name">
+		begin: <input type="text" ng-model="begin">
+		end: <input type="text" ng-model="end">
+		cut_video_name:  <input type="text" ng-model="cut_video_name">
+		<br>
+		<button type="button" ng-click="delete_filterchain(filterchain_name, delete_filterchain_cb)" >delete_filterchain</button>
+		filterchain_name: <input type="text" ng-model="filterchain_name">
+		<br>
+		<button type="button" ng-click="get_count_keys(get_count_keys_cb)" >get_count_keys</button>
+		<br>
+		<button type="button" ng-click="get_execution_info(execution_name, get_execution_info_cb)" >get_execution_info</button>
+		execution_name: <input type="text" ng-model="execution_name">
+		<br>
+		<button type="button" ng-click="get_execution_list(get_execution_list_cb)" >get_execution_list</button>
+		<br>
+		<button type="button" ng-click="get_default_media_name(get_default_media_name_cb)" >get_default_media_name</button>
+		<br>
+		<button type="button" ng-click="get_filter_list(get_filter_list_cb)" >get_filter_list</button>
+		<br>
+		<button type="button" ng-click="get_filterchain_info(filterchain_name, get_filterchain_info_cb)" >get_filterchain_info</button>
+		filterchain_name: <input type="text" ng-model="filterchain_name">
+		<br>
+		<button type="button" ng-click="get_filterchain_list(get_filterchain_list_cb)" >get_filterchain_list</button>
+		<br>
+		<button type="button" ng-click="get_fps_execution(execution_name, get_fps_execution_cb)" >get_fps_execution</button>
+		execution_name: <input type="text" ng-model="execution_name">
+		<br>
+		<button type="button" ng-click="get_info_media(media_name, get_info_media_cb)" >get_info_media</button>
+		media_name: <input type="text" ng-model="media_name">
+		<br>
+		<button type="button" ng-click="get_lst_old_record_historic(get_lst_old_record_historic_cb)" >get_lst_old_record_historic</button>
+		<br>
+		<button type="button" ng-click="get_lst_record_historic(get_lst_record_historic_cb)" >get_lst_record_historic</button>
+		<br>
+		<button type="button" ng-click="get_media_list(get_media_list_cb)" >get_media_list</button>
+		<br>
+		<button type="button" ng-click="get_param_filterchain(execution_name, filter_name, param_name, get_param_filterchain_cb)" >get_param_filterchain</button>
+		execution_name: <input type="text" ng-model="execution_name">
+		filter_name: <input type="text" ng-model="filter_name">
+		param_name: <input type="text" ng-model="param_name">
+		<br>
+		<button type="button" ng-click="get_param_media(media_name, param_name, get_param_media_cb)" >get_param_media</button>
+		media_name: <input type="text" ng-model="media_name">
+		param_name: <input type="text" ng-model="param_name">
+		<br>
+		<button type="button" ng-click="get_params_filterchain(execution_name, filter_name, param_name, get_params_filterchain_cb)" >get_params_filterchain</button>
+		execution_name: <input type="text" ng-model="execution_name">
+		filter_name: <input type="text" ng-model="filter_name">
+		param_name: <input type="text" ng-model="param_name">
+		<br>
+		<button type="button" ng-click="get_params_media(media_name, get_params_media_cb)" >get_params_media</button>
+		media_name: <input type="text" ng-model="media_name">
+		<br>
+		<button type="button" ng-click="is_connected(is_connected_cb)">is_connected</button>
+		<br>
+		<button type="button" ng-click="modify_filterchain(old_filterchain_name, new_filterchain_name, lst_str_filters, default_media, modify_filterchain_cb)" >modify_filterchain</button>
+		old_filterchain_name: <input type="text" ng-model="old_filterchain_name">
+		new_filterchain_name: <input type="text" ng-model="new_filterchain_name">
+		lst_str_filters: <input type="text" ng-model="lst_str_filters">
+		default_media: <input type="text" ng-model="default_media">
+		<br>
+		<button type="button" ng-click="reload_filter(filter_name, reload_filter_cb)" >reload_filter</button>
+		filter_name: <input type="text" ng-model="filter_name">
+		<br>
+		<button type="button" ng-click="remove_image_observer(observer, execution_name, filter_name, remove_image_observer_cb)" >remove_image_observer</button>
+		observer: <input type="text" ng-model="observer">
+		execution_name: <input type="text" ng-model="execution_name">
+		filter_name: <input type="text" ng-model="filter_name">
+		<br>
+		<button type="button" ng-click="remove_output_observer(execution_name, remove_output_observer_cb)" >remove_output_observer</button>
+		execution_name: <input type="text" ng-model="execution_name">
+		<br>
+		<button type="button" ng-click="reset_param(execution_name, filter_name, param_name, reset_param_cb)" >reset_param</button>
+		execution_name: <input type="text" ng-model="execution_name">
+		filter_name: <input type="text" ng-model="filter_name">
+		param_name: <input type="text" ng-model="param_name">
+		<br>
+		<button type="button" ng-click="reset_param_media(media_name, param_name, reset_param_media_cb)" >reset_param_media</button>
+		media_name: <input type="text" ng-model="media_name">
+		param_name: <input type="text" ng-model="param_name">
+		<br>
+		<button type="button" ng-click="save_params(execution_name, save_params_cb)" >save_params</button>
+		execution_name: <input type="text" ng-model="execution_name">
+		<br>
+		<button type="button" ng-click="save_params_media(media_name, save_params_media_cb)" >save_params_media</button>
+		media_name: <input type="text" ng-model="media_name">
+		<br>
+		<button type="button" ng-click="set_as_default_param(execution_name, filter_name, param_name, set_as_default_param_cb)" >set_as_default_param</button>
+		execution_name: <input type="text" ng-model="execution_name">
+		filter_name: <input type="text" ng-model="filter_name">
+		param_name: <input type="text" ng-model="param_name">
+		<br>
+		<button type="button" ng-click="set_as_default_param_media(media_name, param_name, set_as_default_param_media_cb)" >set_as_default_param_media</button>
+		media_name: <input type="text" ng-model="media_name">
+		param_name: <input type="text" ng-model="param_name">
+		<br>
+		<button type="button" ng-click="set_image_observer(observer, execution_name, filter_name_old, filter_name_new, new_observer, set_image_observer_cb)" >set_image_observer</button>
+		observer: <input type="text" ng-model="observer">
+		execution_name: <input type="text" ng-model="execution_name">
+		filter_name_old: <input type="text" ng-model="filter_name_old">
+		filter_name_new: <input type="text" ng-model="filter_name_new">
+		new_observer: <input type="text" ng-model="new_observer">
+		<br>
+		<button type="button" ng-click="start_filterchain_execution(execution_name, media_name, filterchain_name, file_name, is_client_manager, start_filterchain_execution_cb)" >start_filterchain_execution</button>
+		execution_name: <input type="text" ng-model="execution_name">
+		media_name: <input type="text" ng-model="media_name">
+		filterchain_name: <input type="text" ng-model="filterchain_name">
+		file_name: <input type="text" ng-model="file_name">
+		is_client_manager: <input type="text" ng-model="is_client_manager">
+		<br>
+		<button type="button" ng-click="start_record(media_name, path, options, start_record_cb)" >start_record</button>
+		media_name: <input type="text" ng-model="media_name">
+		path: <input type="text" ng-model="path">
+		options: <input type="text" ng-model="options">
+		<br>
+		<button type="button" ng-click="stop_filterchain_execution(execution_name, stop_filterchain_execution_cb)" >stop_filterchain_execution</button>
+		execution_name: <input type="text" ng-model="execution_name">
+		<br>
+		<button type="button" ng-click="stop_record(media_name, stop_record_cb)" >stop_record</button>
+		media_name: <input type="text" ng-model="media_name">
+		<br>
+		<button type="button" ng-click="subscribe(key, subscribe_cb)" >subscribe</button>
+		key: <input type="text" ng-model="key">
+		<br>
+		<button type="button" ng-click="update_param(execution_name, filter_name, param_name, value, update_param_cb)" >update_param</button>
+		execution_name: <input type="text" ng-model="execution_name">
+		filter_name: <input type="text" ng-model="filter_name">
+		param_name: <input type="text" ng-model="param_name">
+		value: <input type="text" ng-model="value">
+		<br>
+		<button type="button" ng-click="update_param_media(media_name, param_name, value, update_param_media_cb)" >update_param_media</button>
+		media_name: <input type="text" ng-model="media_name">
+		param_name: <input type="text" ng-model="param_name">
+		value: <input type="text" ng-model="value">
+		<br>
+		<button type="button" ng-click="upload_filterchain(filterchain_name, s_file_contain, upload_filterchain_cb)" >upload_filterchain</button>
+		filterchain_name: <input type="text" ng-model="filterchain_name">
+		s_file_contain: <input type="text" ng-model="s_file_contain">
+		<br>
 
 	</div>
 </body>
