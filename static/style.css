@@ -1,0 +1,301 @@
+html, body {
+    margin: 0px;
+    padding: 2px;
+    text-align: center;
+	font-size:14px;
+}
+
+h1{
+	font-size:18px;
+	margin:0px;
+}
+
+input[type="button"]{
+	width:75px;
+}
+
+.clear{
+	clear:both;
+	height:1px;
+}
+
+#execution-div{
+	height: 25px;
+	clear:both;
+}
+
+.execution-tab{
+	width:100px;
+	height: 25px;
+	background-image:url('images/tab.png');
+	display:block;
+	padding-top:10px;
+	float:left;
+}
+
+#execution-div .active{
+	background-image:url('images/tab-active.png');
+}
+
+#execution-div  .add{
+	width: 50px;
+	background-image:url('images/tab-add.png');
+}
+
+#content{
+	min-width:1050px;
+	clear:both;
+	border: solid 1px black;
+	padding: 5px;
+	text-align:left;
+}
+
+#left{
+	width:250px;
+	height:auto;
+	position:absolute;
+}
+
+#right{
+	width: calc(100% - 250px);
+	margin-left:250px;
+	float:left;
+	position:relative;
+}
+
+#filter-list{
+	width:230px;
+	height:300px;
+	border:solid 1px black;
+	overflow-y: scroll;
+}
+
+.filter-list-item{
+	height: 25px;
+	display:block;
+	padding-top:10px;
+	padding-left:5px;
+	border-bottom:solid 1px black;
+}
+
+.filter-list-item:hover{
+	background-color:#ccc;
+}
+
+#filter-list .last{
+	border-bottom:none;
+}
+
+#filter-list .selected{
+	background-color:#99f;
+}
+
+#chain-filter-list{
+	width:100%;
+}
+
+.chain-filter{
+	width:100%;
+	border:solid 1px black;
+	margin:5px 0px;
+}
+
+#chain-filter-list .section{
+	min-width:250px;
+	width:auto;
+	/*float:left;*/
+	padding-left:3px;
+}
+
+#chain-filter-list .section.video{
+	width:485px;
+	border-right:solid 1px black;
+}
+
+#chain-filter-list .section.code{
+	position:relative;
+	height:100%;
+}
+
+#chain-filter-list .section-button{
+	width:30px;
+	height:10px;
+	background-color:#dddddd;
+	position:relative;
+	border-right:solid 1px black;
+}
+
+#chain-filter-list .section-button .text{
+	position:absolute;
+	-ms-transform: rotate(90deg); /* IE 9 */
+    -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+    transform: rotate(90deg);
+}
+
+.chain-filter .filter-delete{
+	width:15px;
+	float:left;
+}
+
+.chain-filter .filter-name{
+	width:140px;
+	float:left;
+}
+
+.chain-filter .filter-up{
+	width:15px;
+	float:right;
+}
+
+.chain-filter .filter-down{
+	width:15px;
+	float:right;
+}
+  
+.chain-filter .filter-active{
+	width:70px;
+	float:right;
+	clear:right;
+}
+
+.chain-filter .filter-video{
+	width:480px;
+	height:270px;
+	border:solid 1px black;
+	clear:both;
+}
+
+.chain-filter .textarea{
+	width:100%;
+	height:100px;
+}
+
+.chain-filter-radios{
+	float:left;
+	width:90px;
+	height:42px;
+}
+
+.chain-filter-buttons{
+	float:right;
+	width:155px;
+	height:42px;
+	padding-top:10px;
+}
+
+.chain-filter .search{
+	padding-top:1px;
+	height:23px;
+}
+
+.chain-filter .search .label{
+	width:60px;
+	float:left;
+}
+
+.chain-filter .search .input{
+	width: calc(100% - 60px);
+	float:right;
+	clear: right;
+}
+
+.chain-filter .param-list{
+	height:270px;
+	margin-top:2px;
+	/*border:solid 1px black;*/
+	overflow-y:scroll;
+}
+
+.chain-filter .param-group{
+	position:relative;
+	margin-top:15px;
+	margin-bottom:5px;
+	padding:10px;
+	border:solid 1px black;
+}
+
+.chain-filter .param-group h1{
+	position: absolute;
+	top:-15px;
+	background-color:white;
+}
+
+.chain-filter .param-item{
+	clear:both;
+}
+
+.chain-filter .param-label{
+	width:50%;
+	float:left;
+}
+
+.chain-filter .param-input{
+	width:50%;
+	float:right;
+}
+
+input[type="text"]{
+    width: 100%;
+    padding: 2px;
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;        
+}
+
+
+/******* ngDraggable *********/
+
+[ng-drag]{
+-moz-user-select: -moz-none;
+-khtml-user-select: none;
+-webkit-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+[ng-drag]{
+cursor: move;
+}
+ul.draggable-objects:after{
+display: block;
+content:"";
+clear:both;
+}
+.draggable-objects li{
+float:left;
+display: block;
+width: 120px;
+height:100px;
+}
+[ng-drag].drag-over{
+border:solid 1px red;
+}
+[ng-drag].dragging{
+opacity: 0.5;
+background-color:#ccc;
+}
+[ng-drop]{
+width:100%;
+border:solid 2px white;
+height:15px;
+position: relative;
+}
+[ng-drop].drag-enter{
+border:solid 2px red;
+}
+[ng-drop] span.title{
+display: block;
+position: absolute;
+top:50%;
+left:50%;
+width: 200px;
+height: 20px;
+margin-left: -100px;
+margin-top: -10px;
+}
+[ng-drop] div{
+position: relative;
+z-index: 2;
+}
