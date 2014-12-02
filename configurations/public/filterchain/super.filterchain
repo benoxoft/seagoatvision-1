@@ -1,0 +1,47 @@
+{
+    "lst_filter": [
+        {
+            "lst_param": [
+                {
+                    "is_lock": false, 
+                    "name": "_active_filter", 
+                    "lst_value": null, 
+                    "min_v": null, 
+                    "value": true, 
+                    "max_v": null, 
+                    "threshold": null
+                }
+            ], 
+            "filter_name": "BGR2YUV"
+        }, 
+        {
+            "lst_param": [
+                {
+                    "is_lock": false, 
+                    "name": "_active_filter", 
+                    "lst_value": null, 
+                    "min_v": null, 
+                    "value": true, 
+                    "max_v": null, 
+                    "threshold": null
+                }
+            ], 
+            "filter_name": "BGR2RGB"
+        }, 
+        {
+            "lst_param": [
+                {
+                    "is_lock": false, 
+                    "name": "_active_filter", 
+                    "lst_value": null, 
+                    "min_v": null, 
+                    "value": true, 
+                    "max_v": null, 
+                    "threshold": null
+                }
+            ], 
+            "filter_name": "BGR2HSV"
+        }
+    ], 
+    "default_media_name": "File"
+}
