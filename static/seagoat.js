@@ -17,15 +17,36 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
 		
 	};
 
-    $scope.testt = function(cb) {
-        $http.get("/api/testt").success($scope.default_success(cb)).error($scope.default_error(cb))
-    };
+    //$scope.testt = function(cb) {
+    //    $http.post("/api/testt",  {banane : "patate" }).success($scope.default_success(cb)).error($scope.default_error(cb));
+    //};
 
-    $scope.add_image_observer = function(observer, execution_name, filter_name, cb) {
-        $http.get("/api/add_image_observer/" + observer + "/" + execution_name + "/" + filter_name)
-        .success($scope.default_success(cb))
-        .error($scope.default_error(cb))
-    };
+	$scope.testt = function(cb){
+		$http({
+		  url: "/api/testt",
+		  method: "POST",
+		  data: JSON.stringify({banane : "patate" }),
+		  headers: { 'Content-Type': 'application/json' }
+		}).success(function(data) {
+		  console.log(data)
+		});
+	};
+
+	$scope.add_image_observer = function(execution_name, filter_name, cb) {
+		$http({
+		  url: "/api/add_image_observer",
+		  method: "POST",
+		  data: JSON.stringify({execution_name : execution_name, filter_name : filter_name}),
+		  headers: { 'Content-Type': 'application/json' }
+		}).success($scope.default_success(cb))
+          .error($scope.default_error(cb));
+	};
+
+    //$scope.add_image_observer = function(execution_name, filter_name, cb) {
+    //    $http.get("/api/add_image_observer/" + execution_name + "/" + filter_name)
+    //    .success($scope.default_success(cb))
+    //    .error($scope.default_error(cb))
+    //};
 
     $scope.add_output_observer = function(execution_name, cb) {
         $http.get("/api/add_output_observer/" + execution_name)
@@ -220,11 +241,18 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
         .error($scope.default_error(cb))
     };
 
-    $scope.start_filterchain_execution = function(execution_name, media_name, filterchain_name, file_name, is_client_manager, cb) {
-        $http.get("/api/start_filterchain_execution/" + execution_name + "/" + media_name + "/" + filterchain_name + "/" + file_name + "/" + is_client_manager)
-        .success($scope.default_success(cb))
-        .error($scope.default_error(cb))
-    };
+	$scope.start_filterchain_execution = function(execution_name, media_name, filterchain_name, file_name, is_client_manager, cb) {
+		$http({
+		  url: "/api/start_filterchain_execution",
+		  method: "POST",
+		  data: JSON.stringify({execution_name : execution_name, media_name : media_name, filterchain_name : filterchain_name, file_name : file_name, is_client_manager : is_client_manager}),
+		  headers: { 'Content-Type': 'application/json' }
+		}).success($scope.default_success(cb))
+          .error($scope.default_error(cb));
+	};
+    //$scope.start_filterchain_execution = function(execution_name, media_name, filterchain_name, file_name, is_client_manager, cb) {
+    //    $http.get("/api/start_filterchain_execution/" + execution_name + "/" + media_name + "/" + filterchain_name + "/" + file_name + "/" + is_client_manager)
+    //};
 
     $scope.start_record = function(media_name, path, options, cb) {
         $http.get("/api/start_record/" + media_name + "/" + path + "/" + options)
@@ -314,6 +342,11 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
     };
     //$scope.test_calls();
 	
+	$scope.test_start = function() {
+		$scope.start_filterchain_execution("banane", "File", "super", "/home/benoit/0-92.png", true, $scope.default_test_callback);
+        $scope.add_image_observer("banane", "BGR2HSV-2", $scope.default_test_callback);
+	};
+	$scope.test_start();
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//																		Ajout Raph
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

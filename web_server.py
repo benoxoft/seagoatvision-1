@@ -1,23 +1,42 @@
-from flask import Flask, request
+from flask import Flask, request, Response, render_template
 app = Flask(__name__)
 import sys
 module = sys.modules[__name__]
 import json
 
+from PIL import Image
+
+import StringIO
+import threading
+
 @app.route('/')
 def hello_world():
-    return app.send_static_file('test.html')
+    return render_template('test.html')
 
 import JSONRPCClient
 c = JSONRPCClient.FlaskJsonRpcClient()
+x = []
 
-@app.route('/api/testt')
+@app.route('/api/testt', methods=["POST"])
 def testt():
+    print request.get_json()
+    return ""
     return json.dumps(c.testt())
 
-@app.route('/api/add_image_observer/<observer>/<execution_name>/<filter_name>')
-def add_image_observer(observer, execution_name, filter_name):
-    return json.dumps(c.add_image_observer(observer, execution_name, filter_name))
+@app.route('/api/add_image_observer', methods=["POST"])
+def add_image_observer():
+    post = request.get_json()
+    execution_name = post.get("execution_name")
+    filter_name = post.get("filter_name")
+    print execution_name, filter_name
+    z = ImageListener()
+    x.append(z)
+    print "ALL IS FINE HERE"
+    if c.add_image_observer(z.send,
+                            execution_name,
+                            filter_name):
+        print "ALL IS COOL HERE"
+        return json.dumps(c.subscriber.subscribe("media.File", z.update_fps))
 
 @app.route('/api/add_output_observer/<execution_name>')
 def add_output_observer(execution_name):
@@ -155,12 +174,14 @@ def set_image_observer(observer,
                         new_observer=None):
     return json.dumps(c.set_image_observer(observer, execution_name, filter_name_old, filter_name_new, new_observer))
 
-@app.route('/api/start_filterchain_execution/<execution_name>/<media_name>/<filterchain_name>/<file_name>/<is_client_manager>')
-def start_filterchain_execution(execution_name,
-                                media_name,
-                                filterchain_name,
-                                file_name,
-                                is_client_manager):
+@app.route('/api/start_filterchain_execution', methods=["POST"])
+def start_filterchain_execution():
+    post = request.get_json()
+    execution_name = post.get("execution_name")
+    media_name = post.get("media_name")
+    filterchain_name = post.get("filterchain_name")
+    file_name = post.get("file_name")
+    is_client_manager = post.get("is_client_manager")
     return json.dumps(c.start_filterchain_execution(execution_name, media_name, filterchain_name, file_name, is_client_manager))
 
 @app.route('/api/start_record/<media_name>/<path>/<options>')
@@ -197,6 +218,45 @@ def default_call(method):
         getattr(c, method)
     except:
         return "ERROR"
+
+class ImageListener:
+    
+    def __init__(self):
+        print "INIT CALLED"
+        self.image = None
+        self.evt = threading.Event()
+
+    def send(self, output):
+        print "SEND CALLED!"
+        if output is None:
+            return
+        img = Image.fromarray(output)
+        buff = StringIO.StringIO()
+        img.save(buff, 'bmp')
+        contents = buff.getvalue()
+        buff.close()
+        self.image = contents
+        self.evt.set()
+    
+    def update_fps(self):
+        pass
+    
+    def gen(self):
+        print "GEN CALLED"
+        while True:
+            self.evt.clear()
+            self.evt.wait()
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/bmp\r\n\r\n' + self.image + b'\r\n')
+    
+@app.route('/video_feed')
+def video_feed():
+    if len(x) == 0:
+        return ""
+    web = x[0]
+    """Video streaming route. Put this in the src attribute of an img tag."""
+    return Response(web.gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
 
 if __name__ == '__main__':
     app.run(debug=True)

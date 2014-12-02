@@ -18,7 +18,9 @@ class FlaskJsonRpcClient():
         self.controller.set_subscriber(self.subscriber)
 
     def __getattr__(self, name):
-        if hasattr(self.rpc, name):
+        if hasattr(self.controller, name):
+            return getattr(self.controller, name)
+        elif hasattr(self.rpc, name):
             return getattr(self.rpc, name)
         else:
             raise Exception("Unknown method: " + name)
