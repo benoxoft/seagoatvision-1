@@ -342,11 +342,13 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
     };
     //$scope.test_calls();
 	
+	$scope.fufufu = ""
 	$scope.test_start = function() {
-		$scope.start_filterchain_execution("banane", "File", "super", "/home/benoit/0-92.png", true, $scope.default_test_callback);
-        $scope.add_image_observer("banane", "BGR2HSV-2", $scope.default_test_callback);
+		$scope.start_filterchain_execution("banane", "generator", "super", null, false, $scope.default_test_callback);
+		$scope.add_image_observer("banane", "BGR2HSV-2", $scope.default_test_callback);
+		$scope.fufufu = '/video_feed';
 	};
-	$scope.test_start();
+	        	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//																		Ajout Raph
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

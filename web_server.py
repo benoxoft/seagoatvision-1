@@ -11,10 +11,12 @@ import threading
 
 @app.route('/')
 def hello_world():
-    return render_template('test.html')
+    return app.send_static_file('test.html')
 
-import JSONRPCClient
-c = JSONRPCClient.FlaskJsonRpcClient()
+from SeaGoatVision.server.core.cmdHandler import CmdHandler
+from SeaGoatVision.commons import global_env
+global_env.set_is_local(True)
+c = CmdHandler()
 x = []
 
 @app.route('/api/testt', methods=["POST"])
@@ -36,8 +38,9 @@ def add_image_observer():
                             execution_name,
                             filter_name):
         print "ALL IS COOL HERE"
-        return json.dumps(c.subscriber.subscribe("media.File", z.update_fps))
-
+        #c.subscriber.subscribe("media.generator", z.update_fps)
+        #c.cmd_to_media("File", "frame_media", 0)
+    return json.dumps(True)
 @app.route('/api/add_output_observer/<execution_name>')
 def add_output_observer(execution_name):
     
@@ -218,7 +221,8 @@ def default_call(method):
         getattr(c, method)
     except:
         return "ERROR"
-
+def send(outp):
+    print "/FKEFNEOIFNEI"
 class ImageListener:
     
     def __init__(self):
@@ -227,7 +231,6 @@ class ImageListener:
         self.evt = threading.Event()
 
     def send(self, output):
-        print "SEND CALLED!"
         if output is None:
             return
         img = Image.fromarray(output)
@@ -242,7 +245,6 @@ class ImageListener:
         pass
     
     def gen(self):
-        print "GEN CALLED"
         while True:
             self.evt.clear()
             self.evt.wait()
@@ -259,5 +261,5 @@ def video_feed():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, use_reloader=False)
     
