@@ -1,4 +1,4 @@
-from flask import Flask, request, Response, render_template
+from flask import Flask, request, Response, redirect
 app = Flask(__name__)
 import sys
 module = sys.modules[__name__]
@@ -10,8 +10,12 @@ import StringIO
 import threading
 
 @app.route('/')
-def hello_world():
-    return app.send_static_file('test.html')
+def index():
+    return redirect("static/index.html")
+
+@app.route("/test")
+def test():
+    return app.send_static_file("test.html")
 
 from SeaGoatVision.server.core.cmdHandler import CmdHandler
 from SeaGoatVision.commons import global_env
@@ -260,5 +264,5 @@ def video_feed():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, use_reloader=False)
+    app.run(debug=True, use_reloader=False, host="0.0.0.0", port=8080)
     

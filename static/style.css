@@ -108,7 +108,7 @@ input[type="button"]{
 }
 
 #chain-filter-list .section.video{
-	width:485px;
+	width:200px;/*485px;*/
 	border-right:solid 1px black;
 }
 
