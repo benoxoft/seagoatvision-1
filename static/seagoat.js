@@ -353,77 +353,114 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
 	//																		Ajout Raph
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	//$scope.init=function(){
-		$scope.filters=[
-			{name:'a',file:'a'},
-			{name:'b',file:'b'},
-			{name:'c',file:'c'}
-		];
-		
-		$scope.executions=[
-			{
-				name:'Execution 1',
-				chainFilter:{
-					name:'Chain filter 1',
-					filters:[
-						{name:'filter 1',executionCode:'blablaba',workingCopy:'blablabla',language:'c',params:[
-							{name:'Group 1',type:'group',value:[
-								{name:'Param 1',type:'text',value:'1'},
-								{name:'Param 2',type:'text',value:'2'},
-								{name:'Param 3',type:'text',value:'3'}
-							]},
-							{name:'Group 2',type:'group',value:[
-								{name:'Param 1',type:'text',value:'1'},
-								{name:'Param 2',type:'text',value:'2'}
-							]},
-							{name:'Param 1',type:'text',value:'1'}
+	$scope.filters=[
+		{name:'a', description:'a'},
+		{name:'b', description:'b'},
+		{name:'c', description:'c'}
+	];
+	
+	$scope.executions=[
+		{
+			name:'Execution 1',
+			chainFilter:{
+				name:'Chain filter 1',
+				filters:[
+					{name:'filter 1',executionCode:'blablaba',workingCopy:'blablabla',language:'c',feed:'images/d.png',params:[
+						{name:'Group 1',type:'group',value:[
+							{name:'Param 1',type:'text',value:'1'},
+							{name:'Param 2',type:'text',value:'2'},
+							{name:'Param 3',type:'text',value:'3'}
 						]},
-						{name:'filter 2',executionCode:'blablaba',workingCopy:'blablabla',language:'c',params:[
-							{name:'Group 1',type:'group',value:[
-								{name:'Param 1',type:'text',value:'1'},
-								{name:'Param 2',type:'text',value:'2'}
-							]},
-							{name:'Param 1',type:'text',value:'1'}
+						{name:'Group 2',type:'group',value:[
+							{name:'Param 1',type:'text',value:'1'},
+							{name:'Param 2',type:'text',value:'2'}
 						]},
-						{name:'filter 3',executionCode:'blablaba',workingCopy:'blablabla',language:'c',params:[
-							{name:'Group 1',type:'group',value:[
-								{name:'Param 1',type:'text',value:'1'},
-								{name:'Param 2',type:'text',value:'2'},
-								{name:'Param 3',type:'text',value:'3'}
-							]},
-							{name:'Param 1',type:'text',value:'1'}
-						]}
+						{name:'Param 1',type:'text',value:'1'}
+					]},
+					{name:'filter 2',executionCode:'blablaba',workingCopy:'blablabla',language:'c',feed:'images/d.png',params:[
+						{name:'Group 1',type:'group',value:[
+							{name:'Param 1',type:'text',value:'1'},
+							{name:'Param 2',type:'text',value:'2'}
+						]},
+						{name:'Param 1',type:'text',value:'1'}
+					]},
+					{name:'filter 3',executionCode:'blablaba',workingCopy:'blablabla',language:'c',feed:'images/d.png',params:[
+						{name:'Group 1',type:'group',value:[
+							{name:'Param 1',type:'text',value:'1'},
+							{name:'Param 2',type:'text',value:'2'},
+							{name:'Param 3',type:'text',value:'3'}
+						]},
+						{name:'Param 1',type:'text',value:'1'}
 					]}
-			},
-			{
-				name:'Execution 2',
-				chainFilter:{
-					name:'Chain filter 2',
-					filters:[
-						{name:'filter 1',executionCode:'blablaba',workingCopy:'blablabla',language:'c',params:[
-							{name:'Group 1',type:'group',value:[
-								{name:'Param 1',type:'text',value:'1'},
-								{name:'Param 2',type:'text',value:'2'}
-							]},
-							{name:'Param 1',type:'text',value:'1'}
+				]}
+		},
+		{
+			name:'Execution 2',
+			chainFilter:{
+				name:'Chain filter 2',
+				filters:[
+					{name:'filter 1',executionCode:'blablaba',workingCopy:'blablabla',language:'c',feed:'images/d.png',params:[
+						{name:'Group 1',type:'group',value:[
+							{name:'Param 1',type:'text',value:'1'},
+							{name:'Param 2',type:'text',value:'2'}
 						]},
-						{name:'filter 2',executionCode:'blablaba',workingCopy:'blablabla',language:'c',params:[
-							{name:'Group 1',type:'group',value:[
-								{name:'Param 1',type:'text',value:'1'},
-								{name:'Param 2',type:'text',value:'2'},
-								{name:'Param 3',type:'text',value:'3'}
-							]},
-							{name:'Param 1',type:'text',value:'1'}
-						]}
+						{name:'Param 1',type:'text',value:'1'}
+					]},
+					{name:'filter 2',executionCode:'blablaba',workingCopy:'blablabla',language:'c',feed:'images/d.png',params:[
+						{name:'Group 1',type:'group',value:[
+							{name:'Param 1',type:'text',value:'1'},
+							{name:'Param 2',type:'text',value:'2'},
+							{name:'Param 3',type:'text',value:'3'}
+						]},
+						{name:'Param 1',type:'text',value:'1'}
 					]}
-			},
-		];
-		
-		$scope.activeExecution=0;
-		$scope.selectedFilter=-1;
-	//};
+				]}
+		},
+	];
+	
+	$scope.activeExecution=0;
+	$scope.selectedFilter=-1;
 	
   	$scope.onDropComplete=function(data,ind,evt){
-		$scope.executions[$scope.activeExecution].chainFilter.filters.splice(ind,0,{name:data});
+		if(!isNaN(data)){
+			oldInd = data;
+			data = $scope.executions[$scope.activeExecution].chainFilter.filters[oldInd];
+			$scope.executions[$scope.activeExecution].chainFilter.filters.splice(oldInd,1);
+			if(ind > oldInd) ind--;	//-1 because we removed an element from the array
+		}
+		if(ind < 0 || ind == '-1')
+			$scope.executions[$scope.activeExecution].chainFilter.filters.push(data);
+		else
+			$scope.executions[$scope.activeExecution].chainFilter.filters.splice(ind,0,data);
+		$scope.apply();
+	};
+	
+	$scope.removeFilter=function(ind){
+		if( confirm("Are you sure you want to remove this filter from the chain ?") ){
+			$scope.executions[$scope.activeExecution].chainFilter.filters.splice(ind,1);
+			$scope.apply();
+		}
+	};
+	
+	$scope.changeOrder=function(oldInd,newInd){
+		if(newInd == $scope.executions[$scope.activeExecution].chainFilter.filters.length) newInd = 0;	//Moving last to first
+		data = $scope.executions[$scope.activeExecution].chainFilter.filters[oldInd];
+		$scope.executions[$scope.activeExecution].chainFilter.filters.splice(oldInd,1);
+		
+		if(newInd < 0 || newInd == '-1')
+			$scope.executions[$scope.activeExecution].chainFilter.filters.push(data);
+		else
+			$scope.executions[$scope.activeExecution].chainFilter.filters.splice(newInd,0,data);
+	};
+	
+	$scope.changeSelectedFilter=function(ind){
+		($scope.selectedFilter==ind) ? $scope.selectedFilter=-1 : $scope.selectedFilter=ind;
+	};
+	
+	$scope.videoClick=function(filterInd){
+		if($scope.executions[$scope.activeExecution].chainFilter.filters[filterInd].feed == 'images/d.png')
+			$scope.executions[$scope.activeExecution].chainFilter.filters[filterInd].feed = 'images/u.png';
+		else
+			$scope.executions[$scope.activeExecution].chainFilter.filters[filterInd].feed = 'images/d.png';
 	};
 }]);
