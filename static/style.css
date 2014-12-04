@@ -249,53 +249,53 @@ input[type="text"]{
 /******* ngDraggable *********/
 
 [ng-drag]{
--moz-user-select: -moz-none;
--khtml-user-select: none;
--webkit-user-select: none;
--ms-user-select: none;
-user-select: none;
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 [ng-drag]{
-cursor: move;
+	cursor: move;
 }
 ul.draggable-objects:after{
-display: block;
-content:"";
-clear:both;
+	display: block;
+	content:"";
+	clear:both;
 }
 .draggable-objects li{
-float:left;
-display: block;
-width: 120px;
-height:100px;
+	float:left;
+	display: block;
+	width: 120px;
+	height:100px;
 }
 [ng-drag].drag-over{
-border:solid 1px red;
+	border:solid 1px red;
 }
 [ng-drag].dragging{
-opacity: 0.5;
-background-color:#ccc;
+	opacity: 0.5;
+	background-color:#ccc;
 }
 [ng-drop]{
-width:100%;
-border:solid 2px white;
-height:15px;
-position: relative;
+	width:100%;
+	border:solid 2px white;
+	height:15px;
+	position: relative;
 }
 [ng-drop].drag-enter{
-border:solid 2px red;
+	border:solid 2px red;
 }
 [ng-drop] span.title{
-display: block;
-position: absolute;
-top:50%;
-left:50%;
-width: 200px;
-height: 20px;
-margin-left: -100px;
-margin-top: -10px;
+	display: block;
+	position: absolute;
+	top:50%;
+	left:50%;
+	width: 200px;
+	height: 20px;
+	margin-left: -100px;
+	margin-top: -10px;
 }
 [ng-drop] div{
-position: relative;
-z-index: 2;
+	position: relative;
+	z-index: 2;
 }
