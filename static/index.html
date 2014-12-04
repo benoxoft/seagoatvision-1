@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link href="style.css" type="text/css" rel="stylesheet">
+	<script src= "http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+	<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-animate.min.js"></script>
+	<script src= "ngDraggable.js"></script>
+	<script src= "callback.js"></script>
+	<script src= "seagoat.js"></script>
+	<script type= "text/javascript">
+		
+	</script>
+	<title>SeagoatVision</title>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="api">
+		<div id="execution-div">
+			<div class="execution-tab ng-class:{active: $index==activeExecution}" ng-repeat="e in executions" ng-click="activeExecution=$index">{{e.name}}</div>
+			<div class="execution-tab add" ng-click="executions.push({name:'test'});apply();">+</div>
+		</div>
+		<div id="content">
+			<div id="left">
+				<div id="menu">
+					<ul>
+						<li><a href="#">New filter chain</a></li>
+						<li><a href="#">Open filter chain</a></li>
+						<li><a href="#">Save filter chain</a></li>
+						<li><a href="#">Download filter chain</a></li>
+						<li><a href="#">Upload filter chain</a></li>
+					</ul>
+				</div>
+				<div id="filters">
+					<h1>Filter list</h1>
+					<div id="filter-list">
+						<div class="filter-list-item ng-binding ng-class:{selected: $index==selectedFilter}" draggable="false" ng-drag="true" ng-drag-data="f" ng-repeat="f in filters" data="{{f.file}}" ng-click="changeSelectedFilter($index)">{{f.name}}</div>
+					</div>
+					<div>
+						<input type="button" value="Add"/>
+						<input type="button" value="Edit"/>
+						<input type="button" value="Delete"/>
+					</div>
+				</div>
+			</div>
+			<div id="right">
+				<h1>{{executions[activeExecution].chainFilter.name}}</h1>
+				<div id="chain-filter-list">
+					<div ng-repeat="f in executions[activeExecution].chainFilter.filters">
+						<div class="" ng-drop="true" ng-drop-success="onDropComplete($data,$index,$event)"></div>
+						<table class="chain-filter ng-binding">
+							<tr style="border:1px solid black;">
+								<td class="video section">
+									<div class="filter-delete"><a href="#" ng-click="removeFilter($index)">x</a></div>
+									<div class="filter-name" draggable="false" ng-drag="true" ng-drag-data="$index">{{f.name}}</div>
+									<div class="filter-active"><input type="checkbox" />Active</div>
+									<div class="filter-down"><a href="#"><a href="#" ng-click="changeOrder($index,$index + 1)"><img src="images/d.png" alt="D" /></a></div>
+									<div class="filter-up"><a href="#"><a href="#" ng-click="changeOrder($index,$index - 1)"><img src="images/u.png" alt="U" /></a></div>
+									<div class="filter-video"><img src="{{f.feed}}" ng-click="videoClick($index)"/></div>
+								</td>
+								<td class="code section ng-hide" ng-show="code">
+									<div>
+										Execution code :<br/>
+										<textarea class="textarea">{{f.executionCode}}</textarea>
+									</div>
+									<div>
+										Working copy : <br/>
+										<textarea class="textarea">{{f.workingCopy}}</textarea>
+									</div>
+									<div class="chain-filter-radios">
+										<input type="radio" ng-model="f.language" name="c" radiogroup="code-type">C++<br/>
+										<input type="radio" ng-model="f.language" name="py" radiogroup="code-type">Python
+									</div>
+									<div class="chain-filter-buttons">
+										<input type="button" value="Save" />
+										<input type="button" value="Cancel" />
+									</div>
+								</td>
+								<td class="section-button" ng-click="code = !code">
+									<div class="text">Code</div>
+								</td>
+								<td class="param section ng-hide" ng-show="params">
+									<div class="search"><div class="label">Search : </div><div class="input"><input type="text" name="search"></div></div>
+									<div class="param-list">
+										<div ng-repeat="p in f.params" ng-switch="p.type">
+											<div class="param-group" ng-switch-when="group">
+												<h1>{{p.name}}</h1>
+												<div class="param-item" ng-repeat="v in p.value">
+													<div class="param-label">{{v.name}}</div>
+													<div class="param-input"><input type="text" ng-model="v.value"></div>
+												</div>
+												<div class="clear">&nbsp;</div>
+											</div>
+											<div class="param-item" style="padding:0px 11px;" ng-switch-default>
+												<div class="param-label">{{p.name}}</div>
+												<div class="param-input"><input type="text" ng-model="p.value"></div>
+											</div>
+										</div>
+									</div>
+								</td>
+								<td class="section-button" ng-click="params = !params">
+									<div class="text">Params</div>
+								</td>
+								<td style="min-width:1px;"></td>
+							</tr>
+						</table>
+					</div>
+					<div class="" ng-drop="true" ng-drop-success="onDropComplete($data,-1,$event)"></div>
+				</div>
+			</div>
+			<div class="clear">&nbsp;</div>
+		</div>
+	</div>
+</body>
+</html>
