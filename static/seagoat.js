@@ -29,6 +29,7 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
 		  headers: { 'Content-Type': 'application/json' }
 		}).success(function(data) {
 		  console.log(data)
+		  cb(data, status);
 		});
 	};
 
@@ -353,11 +354,11 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
 	//																		Ajout Raph
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	$scope.filters=[
+	/*$scope.filters=[
 		{name:'a', description:'a'},
 		{name:'b', description:'b'},
 		{name:'c', description:'c'}
-	];
+	];*/
 	
 	$scope.executions=[
 		{

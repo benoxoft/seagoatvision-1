@@ -1,7 +1,8 @@
-function callback ($scope) {
-
+//var myApp = angular.module('myApp', ['ngDraggable']);
+myApp.controller('callback', ['$scope', function($scope) {
+	console.log("HEEELLLLO!!!");
     $scope.testt_cb = function(data, status) {
-
+		console.log("HEEELLLLO!!!");
     };
 
     $scope.add_image_observer_cb = function(data, status) {
@@ -41,7 +42,14 @@ function callback ($scope) {
     };
 
     $scope.get_filter_list_cb = function(data, status) {
-
+		filters = [];
+		for(var k in data) {
+			if(data.hasOwnProperty(k)) {
+				filters.push({name : k, description : data[k]});
+			}
+		}
+		console.log(filters);
+		$scope.filters = filters;
     };
 
     $scope.get_filterchain_info_cb = function(data, status) {
@@ -169,4 +177,4 @@ function callback ($scope) {
 
     };
     
-};
+}]);
