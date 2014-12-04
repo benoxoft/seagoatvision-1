@@ -221,14 +221,13 @@ def default_call(method):
         getattr(c, method)
     except:
         return "ERROR"
-def send(outp):
-    print "/FKEFNEOIFNEI"
+
 class ImageListener:
     
     def __init__(self):
         print "INIT CALLED"
         self.image = None
-        self.evt = threading.Event()
+        #self.evt = threading.Event()
 
     def send(self, output):
         if output is None:
@@ -239,15 +238,15 @@ class ImageListener:
         contents = buff.getvalue()
         buff.close()
         self.image = contents
-        self.evt.set()
+        #self.evt.set()
     
     def update_fps(self):
         pass
     
     def gen(self):
         while True:
-            self.evt.clear()
-            self.evt.wait()
+            #self.evt.clear()
+            #self.evt.wait()
             yield (b'--frame\r\n'
                    b'Content-Type: image/bmp\r\n\r\n' + self.image + b'\r\n')
     

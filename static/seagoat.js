@@ -187,8 +187,8 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
         .error($scope.default_error(cb))
     };
 
-    $scope.remove_image_observer = function(observer, execution_name, filter_name, cb) {
-        $http.get("/api/remove_image_observer/" + observer + "/" + execution_name + "/" + filter_name)
+    $scope.remove_image_observer = function(execution_name, filter_name, cb) {
+        $http.get("/api/remove_image_observer/" + execution_name + "/" + filter_name)
         .success($scope.default_success(cb))
         .error($scope.default_error(cb))
     };
@@ -235,8 +235,8 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
         .error($scope.default_error(cb))
     };
 
-    $scope.set_image_observer = function(observer, execution_name, filter_name_old, filter_name_new, new_observer, cb) {
-        $http.get("/api/set_image_observer/" + observer + "/" + execution_name + "/" + filter_name_old + "/" + filter_name_new + "/" + new_observer)
+    $scope.set_image_observer = function(execution_name, filter_name_old, filter_name_new, new_observer, cb) {
+        $http.get("/api/set_image_observer/" + execution_name + "/" + filter_name_old + "/" + filter_name_new + "/" + new_observer)
         .success($scope.default_success(cb))
         .error($scope.default_error(cb))
     };
@@ -344,8 +344,8 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
 	
 	$scope.fufufu = ""
 	$scope.test_start = function() {
-		$scope.start_filterchain_execution("banane", "generator", "super", null, false, $scope.default_test_callback);
-		$scope.add_image_observer("banane", "BGR2HSV-2", $scope.default_test_callback);
+		//$scope.start_filterchain_execution("banane", "generator", "super", null, false, $scope.default_test_callback);
+		//$scope.add_image_observer("banane", "BGR2HSV-2", $scope.default_test_callback);
 		$scope.fufufu = '/video_feed';
 	};
 	        	

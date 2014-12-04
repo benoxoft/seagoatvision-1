@@ -14,8 +14,7 @@
 	<div ng-controller="callback">
 		<button type="button" ng-click="testt(testt_cb)" >Test</button><br>
 		
-		<button type="button" ng-click="add_image_observer(observer, execution_name, filter_name, add_image_observer_cb)" >add_image_observer</button>
-		observer: <input type="text" ng-model="observer">
+		<button type="button" ng-click="add_image_observer(execution_name, filter_name, add_image_observer_cb)" >add_image_observer</button>
 		execution_name: <input type="text" ng-model="execution_name">
 		filter_name: <input type="text" ng-model="filter_name"><br>
 		
@@ -93,8 +92,7 @@
 		<button type="button" ng-click="reload_filter(filter_name, reload_filter_cb)" >reload_filter</button>
 		filter_name: <input type="text" ng-model="filter_name">
 		<br>
-		<button type="button" ng-click="remove_image_observer(observer, execution_name, filter_name, remove_image_observer_cb)" >remove_image_observer</button>
-		observer: <input type="text" ng-model="observer">
+		<button type="button" ng-click="remove_image_observer(execution_name, filter_name, remove_image_observer_cb)" >remove_image_observer</button>
 		execution_name: <input type="text" ng-model="execution_name">
 		filter_name: <input type="text" ng-model="filter_name">
 		<br>
@@ -125,8 +123,7 @@
 		media_name: <input type="text" ng-model="media_name">
 		param_name: <input type="text" ng-model="param_name">
 		<br>
-		<button type="button" ng-click="set_image_observer(observer, execution_name, filter_name_old, filter_name_new, new_observer, set_image_observer_cb)" >set_image_observer</button>
-		observer: <input type="text" ng-model="observer">
+		<button type="button" ng-click="set_image_observer(execution_name, filter_name_old, filter_name_new, new_observer, set_image_observer_cb)" >set_image_observer</button>
 		execution_name: <input type="text" ng-model="execution_name">
 		filter_name_old: <input type="text" ng-model="filter_name_old">
 		filter_name_new: <input type="text" ng-model="filter_name_new">

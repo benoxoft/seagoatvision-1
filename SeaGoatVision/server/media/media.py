@@ -40,7 +40,7 @@ class Media(PoolParam):
     def __init__(self):
         super(Media, self).__init__()
         # TODO change sleep_time dependant of real fps desire
-        self.fps = 30.0
+        self.fps = 10.0
         self.sleep_time = 1 / self.fps
         self.lst_observer = []
         self.thread = None
