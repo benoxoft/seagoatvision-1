@@ -17,8 +17,8 @@
 	<div ng-controller="api">
 		<div ng-controller="callback">
 			<div id="execution-div">
-				<div class="execution-tab ng-class:{active: $index==activeExecution}" ng-repeat="e in executions" ng-click="activeExecution=$index">{{e.name}}</div>
-				<div class="execution-tab add" ng-click="executions.push({name:'test'});apply();">+</div>
+				<div class="execution-tab ng-class:{active: $index==activeExecution}" ng-repeat="e in executions" ng-click="changeExecution($index)">{{e.name}}</div>
+				<div class="execution-tab add" ng-click="executions.push({name:'Execution '+executions.length});apply();">+</div>
 			</div>
 			<div id="content">
 				<div id="left">

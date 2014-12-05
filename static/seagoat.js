@@ -349,7 +349,13 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
 		//$scope.add_image_observer("banane", "BGR2HSV-2", $scope.default_test_callback);
 		$scope.fufufu = '/video_feed';
 	};
-	        	
+	
+	$scope.load_executions = function() {
+		execs = $scope.get_execution_list(null);
+		for(k in execs) {
+			
+		}
+	};
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//																		Ajout Raph
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -463,5 +469,9 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
 			$scope.executions[$scope.activeExecution].chainFilter.filters[filterInd].feed = 'images/u.png';
 		else
 			$scope.executions[$scope.activeExecution].chainFilter.filters[filterInd].feed = 'images/d.png';
+	};
+	
+	$scope.changeExecution = function(execInd){
+		$scope.activeExecution = execInd;
 	};
 }]);
