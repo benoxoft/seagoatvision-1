@@ -109,7 +109,7 @@
 							<div class="" ng-drop="true" ng-drop-success="onDropComplete($data,-1,$event)"></div>
 						</div>
 					</div>
-					<div ng-show="typeof(execution[activeExecution].chainFilter) == 'undefined'">
+					<div ng-show="!typeof(execution[activeExecution].chainFilter) != 'undefined'">
 						Select a filter chain to open : 
 						
 					</div>

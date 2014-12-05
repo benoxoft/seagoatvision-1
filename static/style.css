@@ -44,6 +44,7 @@ input[type="button"]{
 
 #content{
 	min-width:1050px;
+	min-height:300px;
 	clear:both;
 	border: solid 1px black;
 	padding: 5px;
@@ -114,7 +115,7 @@ input[type="button"]{
 	border-right:solid 1px black;
 }
 
-#chain-filter-list .section.code{
+#chain-filter-list .section.cfode{
 	position:relative;
 	height:100%;
 }
