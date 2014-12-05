@@ -63,7 +63,11 @@ myApp.controller('callback', ['$scope', function($scope) {
     $scope.get_filterchain_info_cb = function(data, status) {
 		var fc = $scope.executions.filter(function(obj){return obj.chainFilter.name === data.filterchain_name;})[0];			
 		fc.default_media = data.info.default_media;
-		fc.filters = 
+		fc.filters = [];
+		for(f in data.info.filters) {
+			fc.filters.push({name : f.name, executionCode : '', workingCopy : '', language : 'c', feed : ''});
+			
+		}
 			
     };
 

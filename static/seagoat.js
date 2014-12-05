@@ -157,8 +157,8 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
         .error($scope.default_error(cb))
     };
 
-    $scope.get_params_filterchain = function(execution_name, filter_name, param_name, cb) {
-        $http.get("/api/get_params_filterchain/" + execution_name + "/" + filter_name + "/" + param_name)
+    $scope.get_params_filterchain = function(execution_name, filter_name, cb) {
+        $http.get("/api/get_params_filterchain/" + execution_name + "/" + filter_name)
         .success($scope.default_success(cb))
         .error($scope.default_error(cb))
     };
@@ -373,8 +373,8 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
 	$scope.executions=[
 		{
 			name:'Execution 1',
-			chainFilter:{
-				name:'Chain filter 1',
+			filterChain:{
+				name:'Filter chain 1',
 				filters:[
 					{name:'filter 1',executionCode:'blablaba',workingCopy:'blablabla',language:'c',feed:'images/d.png',params:[
 						{name:'Group 1',type:'group',value:[
@@ -407,8 +407,8 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
 		},
 		{
 			name:'Execution 2',
-			chainFilter:{
-				name:'Chain filter 2',
+			filterChain:{
+				name:'Filter chain 2',
 				filters:[
 					{name:'filter 1',executionCode:'blablaba',workingCopy:'blablabla',language:'c',feed:'images/d.png',params:[
 						{name:'Group 1',type:'group',value:[
@@ -431,37 +431,38 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
 	
 	$scope.activeExecution=0;
 	$scope.selectedFilter=-1;
+	$scope.displayOpenChain = false;
 	
   	$scope.onDropComplete=function(data,ind,evt){
 		if(!isNaN(data)){
 			oldInd = data;
-			data = $scope.executions[$scope.activeExecution].chainFilter.filters[oldInd];
-			$scope.executions[$scope.activeExecution].chainFilter.filters.splice(oldInd,1);
+			data = $scope.executions[$scope.activeExecution].filterChain.filters[oldInd];
+			$scope.executions[$scope.activeExecution].filterChain.filters.splice(oldInd,1);
 			if(ind > oldInd) ind--;	//-1 because we removed an element from the array
 		}
 		if(ind < 0 || ind == '-1')
-			$scope.executions[$scope.activeExecution].chainFilter.filters.push(data);
+			$scope.executions[$scope.activeExecution].filterChain.filters.push(data);
 		else
-			$scope.executions[$scope.activeExecution].chainFilter.filters.splice(ind,0,data);
+			$scope.executions[$scope.activeExecution].filterChain.filters.splice(ind,0,data);
 		$scope.apply();
 	};
 	
 	$scope.removeFilter=function(ind){
 		if( confirm("Are you sure you want to remove this filter from the chain ?") ){
-			$scope.executions[$scope.activeExecution].chainFilter.filters.splice(ind,1);
+			$scope.executions[$scope.activeExecution].filterChain.filters.splice(ind,1);
 			$scope.apply();
 		}
 	};
 	
 	$scope.changeOrder=function(oldInd,newInd){
-		if(newInd == $scope.executions[$scope.activeExecution].chainFilter.filters.length) newInd = 0;	//Moving last to first
-		data = $scope.executions[$scope.activeExecution].chainFilter.filters[oldInd];
-		$scope.executions[$scope.activeExecution].chainFilter.filters.splice(oldInd,1);
+		if(newInd == $scope.executions[$scope.activeExecution].filterChain.filters.length) newInd = 0;	//Moving last to first
+		data = $scope.executions[$scope.activeExecution].filterChain.filters[oldInd];
+		$scope.executions[$scope.activeExecution].filterChain.filters.splice(oldInd,1);
 		
 		if(newInd < 0 || newInd == '-1')
-			$scope.executions[$scope.activeExecution].chainFilter.filters.push(data);
+			$scope.executions[$scope.activeExecution].filterChain.filters.push(data);
 		else
-			$scope.executions[$scope.activeExecution].chainFilter.filters.splice(newInd,0,data);
+			$scope.executions[$scope.activeExecution].filterChain.filters.splice(newInd,0,data);
 	};
 	
 	$scope.changeSelectedFilter=function(ind){
@@ -469,10 +470,10 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
 	};
 	
 	$scope.videoClick=function(filterInd){
-		if($scope.executions[$scope.activeExecution].chainFilter.filters[filterInd].feed == 'images/d.png')
-			$scope.executions[$scope.activeExecution].chainFilter.filters[filterInd].feed = 'images/u.png';
+		if($scope.executions[$scope.activeExecution].filterChain.filters[filterInd].feed == 'images/d.png')
+			$scope.executions[$scope.activeExecution].filterChain.filters[filterInd].feed = 'images/u.png';
 		else
-			$scope.executions[$scope.activeExecution].chainFilter.filters[filterInd].feed = 'images/d.png';
+			$scope.executions[$scope.activeExecution].filterChain.filters[filterInd].feed = 'images/d.png';
 	};
 	
 	$scope.changeExecution = function(execInd){
@@ -481,8 +482,10 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
 	
 	$scope.addExecution = function(){
 		var newNbExec = $scope.executions.length + 1;
-		$scope.activeExecution = newNbExec;
 		$scope.executions.push({name:'Execution '+newNbExec});
-		$scope.changeExecution(newNbExec);
-	}
+	};
+	
+	$scope.newFilterChain = function(){
+		$scope.executions[activeExecution].filterChain = {filter:[]};
+	};
 }]);

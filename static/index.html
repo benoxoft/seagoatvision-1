@@ -24,7 +24,7 @@
 				<div id="left">
 					<div id="menu">
 						<ul>
-							<li><a href="#">New filter chain</a></li>
+							<li><a href="#" ng-click="newFilterChain()">New filter chain</a></li>
 							<li><a href="#">Open filter chain</a></li>
 							<li><a href="#">Save filter chain</a></li>
 							<li><a href="#">Download filter chain</a></li>
@@ -44,10 +44,16 @@
 					</div>
 				</div>
 				<div id="right">
-					<div ng-show="typeof(execution[activeExecution].chainFilter) != 'undefined'">
-						<h1>{{executions[activeExecution].chainFilter.name}}</h1>
+					<div>{{executions[activeExecution]}}</div>
+					<div ng-show="typeof(execution[activeExecution].filterChain) != 'undefined'">
+						<h1 ng-show="typeof(execution[activeExecution].filterChain.name) != 'undefined'">
+							{{executions[activeExecution].filterChain.name}}
+						</h1>
+						<div ng-show="!(typeof(execution[activeExecution].filterChain.name) != 'undefined')">
+							<input type="text" ng-model="executions[activeExecution].filterChain.name">
+						</div>
 						<div id="chain-filter-list">
-							<div ng-repeat="f in executions[activeExecution].chainFilter.filters">
+							<div ng-repeat="f in executions[activeExecution].filterChain.filters">
 								<div class="" ng-drop="true" ng-drop-success="onDropComplete($data,$index,$event)"></div>
 								<table class="chain-filter ng-binding">
 									<tr style="border:1px solid black;">
@@ -109,9 +115,8 @@
 							<div class="" ng-drop="true" ng-drop-success="onDropComplete($data,-1,$event)"></div>
 						</div>
 					</div>
-					<div ng-show="!typeof(execution[activeExecution].chainFilter) != 'undefined'">
+					<div ng-show="displayOpenChain">
 						Select a filter chain to open : 
-						
 					</div>
 				</div>
 				<div class="clear">&nbsp;</div>
