@@ -84,7 +84,7 @@ def get_filter_list():
 
 @app.route('/api/get_filterchain_info/<filterchain_name>')
 def get_filterchain_info(filterchain_name):
-    return json.dumps(c.get_filterchain_info(filterchain_name))
+    return json.dumps((filterchain_name, c.get_filterchain_info(filterchain_name)))
 
 @app.route('/api/get_filterchain_list')
 def get_filterchain_list():
