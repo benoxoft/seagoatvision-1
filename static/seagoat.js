@@ -348,10 +348,14 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
 		//$scope.start_filterchain_execution("banane", "generator", "super", null, false, $scope.default_test_callback);
 		//$scope.add_image_observer("banane", "BGR2HSV-2", $scope.default_test_callback);
 		$scope.fufufu = '/video_feed';
+		$scope.testt($scope.testt_cb);
 	};
 	
 	$scope.load_executions = function() {
-		execs = $scope.get_execution_list(null);
+		$scope.get_execution_list($scope.get_execution_list_cb);
+		for(k in $scope.execution_list) {
+			
+		}
 		for(k in execs) {
 			
 		}
@@ -474,4 +478,11 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
 	$scope.changeExecution = function(execInd){
 		$scope.activeExecution = execInd;
 	};
+	
+	$scope.addExecution = function(){
+		var newNbExec = $scope.executions.length + 1;
+		$scope.activeExecution = newNbExec;
+		$scope.executions.push({name:'Execution '+newNbExec});
+		$scope.changeExecution(newNbExec);
+	}
 }]);

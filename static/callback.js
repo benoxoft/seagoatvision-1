@@ -1,6 +1,5 @@
 //var myApp = angular.module('myApp', ['ngDraggable']);
 myApp.controller('callback', ['$scope', function($scope) {
-	console.log("HEEELLLLO!!!");
     $scope.testt_cb = function(data, status) {
 		console.log("HEEELLLLO!!!");
     };
@@ -30,11 +29,20 @@ myApp.controller('callback', ['$scope', function($scope) {
     };
 
     $scope.get_execution_info_cb = function(data, status) {
-
+		var exec = $scope.executions.filter(function(obj){return obj.name === data.execution_name;})[0];
+		exec.media_name = data.media_name;
+		exec.chainFilter = data.filterchain_name;
+		$scope.get_filterchain_info(data.filterchain_name, $scope.get_filterchain_info_cb);
     };
 
     $scope.get_execution_list_cb = function(data, status) {
-
+		for(k in data) {
+			var exec = $scope.executions.filter(function(obj){return obj.name === k;})[0];
+			if(typeof(exec) == 'undefined') {
+				$scope.executions.push({name : k});
+				$scope.get_execution_info(k, $scope.get_execution_info_cb);
+			}
+		}
     };
 
     $scope.get_default_media_name_cb = function(data, status) {

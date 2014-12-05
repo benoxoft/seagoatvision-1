@@ -68,7 +68,7 @@ def get_count_keys():
 
 @app.route('/api/get_execution_info/<execution_name>')
 def get_execution_info(execution_name):
-    return json.dumps(c.get_execution_info(execution_name))
+    return json.dumps({"execution_name" : execution_name, "info" : c.get_execution_info(execution_name)})
 
 @app.route('/api/get_execution_list')
 def get_execution_list():
@@ -84,7 +84,7 @@ def get_filter_list():
 
 @app.route('/api/get_filterchain_info/<filterchain_name>')
 def get_filterchain_info(filterchain_name):
-    return json.dumps((filterchain_name, c.get_filterchain_info(filterchain_name)))
+    return json.dumps({"filterchain_name" : filterchain_name, "info" : c.get_filterchain_info(filterchain_name)})
 
 @app.route('/api/get_filterchain_list')
 def get_filterchain_list():

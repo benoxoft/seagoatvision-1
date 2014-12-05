@@ -108,7 +108,9 @@ input[type="button"]{
 }
 
 #chain-filter-list .section.video{
-	width:200px;/*485px;*/
+	/*width:485px;
+	Pour la présentation : */
+	width:325px;
 	border-right:solid 1px black;
 }
 
@@ -118,7 +120,7 @@ input[type="button"]{
 }
 
 #chain-filter-list .section-button{
-	width:30px;
+	width:35px;
 	height:10px;
 	background-color:#dddddd;
 	position:relative;
@@ -159,15 +161,20 @@ input[type="button"]{
 }
 
 .chain-filter .filter-video{
-	width:480px;
+	/*width:480px;
 	height:270px;
+	Pour la présentation : */
+	width:320px;
+	height:180px;
 	border:solid 1px black;
 	clear:both;
 }
 
 .chain-filter .textarea{
 	width:100%;
-	height:100px;
+	/*height:100px;
+	Pour la présentation : */
+	height:50px;
 }
 
 .chain-filter-radios{
@@ -200,7 +207,9 @@ input[type="button"]{
 }
 
 .chain-filter .param-list{
-	height:270px;
+	/*height:270px;
+	Pour la présentation : */
+	height:175px;
 	margin-top:2px;
 	/*border:solid 1px black;*/
 	overflow-y:scroll;
