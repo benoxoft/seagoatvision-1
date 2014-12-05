@@ -31,7 +31,7 @@ myApp.controller('callback', ['$scope', function($scope) {
     $scope.get_execution_info_cb = function(data, status) {
 		var exec = $scope.executions.filter(function(obj){return obj.name === data.execution_name;})[0];
 		exec.media_name = data.info.media_name;
-		exec.chainFilter = {name : data.info.filterchain_name};
+		exec.filterChain = {name : data.info.filterchain_name};
 		$scope.get_filterchain_info(data.filterchain_name, $scope.get_filterchain_info_cb);
     };
 
@@ -61,7 +61,7 @@ myApp.controller('callback', ['$scope', function($scope) {
     };
 
     $scope.get_filterchain_info_cb = function(data, status) {
-		var fc = $scope.executions.filter(function(obj){return obj.chainFilter.name === data.filterchain_name;})[0];			
+		var fc = $scope.executions.filter(function(obj){return obj.filterChain.name === data.filterchain_name;})[0];			
 		fc.default_media = data.info.default_media;
 		fc.filters = [];
 		for(f in data.info.filters) {

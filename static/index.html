@@ -46,12 +46,11 @@
 				<div id="right">
 					<div>{{executions[activeExecution]}}</div>
 					<div ng-show="typeof(execution[activeExecution].filterChain) != 'undefined'">
-						<h1 ng-show="typeof(execution[activeExecution].filterChain.name) != 'undefined'">
+						<h1 class="filterChain-title">
 							{{executions[activeExecution].filterChain.name}}
 						</h1>
-						<div ng-show="!(typeof(execution[activeExecution].filterChain.name) != 'undefined')">
-							<input type="text" ng-model="executions[activeExecution].filterChain.name">
-						</div>
+						<div style="float:left;" ng-show="!displayEditTitle"><a href="displayEditTitle = true">Edit</a>
+						<div style="float:left;" ng-show="displayEditTitle"><input type="text" ng-model="executions[activeExecution].filterChain.name" /></div>
 						<div id="chain-filter-list">
 							<div ng-repeat="f in executions[activeExecution].filterChain.filters">
 								<div class="" ng-drop="true" ng-drop-success="onDropComplete($data,$index,$event)"></div>

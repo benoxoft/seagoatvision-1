@@ -120,6 +120,8 @@ def get_param_media(media_name, param_name):
 
 @app.route('/api/get_params_filterchain/<execution_name>/<filter_name>')
 def get_params_filterchain(execution_name, filter_name):
+    if execution_name == 'undefined':
+        execution_name = None
     return json.dumps({"execution_name" : execution_name, "filter_name" : filter_name, "params" : c.get_params_filterchain(execution_name, filter_name)})
 
 @app.route('/api/get_params_media/<media_name>')

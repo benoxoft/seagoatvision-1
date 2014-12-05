@@ -432,6 +432,7 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
 	$scope.activeExecution=0;
 	$scope.selectedFilter=-1;
 	$scope.displayOpenChain = false;
+	$scope.displayEditTitle = false;
 	
   	$scope.onDropComplete=function(data,ind,evt){
 		if(!isNaN(data)){
@@ -477,6 +478,8 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
 	};
 	
 	$scope.changeExecution = function(execInd){
+		$scope.displayOpenChain = false;
+		$scope.displayEditTitle = false;
 		$scope.activeExecution = execInd;
 	};
 	
@@ -486,6 +489,8 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
 	};
 	
 	$scope.newFilterChain = function(){
-		$scope.executions[activeExecution].filterChain = {filter:[]};
+		delete $scope.executions[$scope.activeExecution].filterChain;
+		$scope.executions[$scope.activeExecution].filterChain = {filter:[]};
+		$scope.displayEditTitle = true;
 	};
 }]);
