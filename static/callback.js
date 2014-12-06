@@ -115,7 +115,14 @@ myApp.controller('callback', ['$scope', function($scope) {
 		var filter = exec.filterChain.filters.filter(function(obj){return obj.name === data.filter_name;})[0];
 		for(pname in data.params) {
 			var newp = data.params[pname]
-			filter.params.push({name:pname, type:'text', value:newp.value});	
+			for(gname in newp.lst_groups) {
+				var group = filter.params.filter(function(obj){return obj.name === gname;})[0]
+				if(group == 'undefined') {
+					group = {name:pname, type:'group', value:[]}
+					filter.params.push(group)
+				}
+				group.value.push({name:pname, type:'text', value:newp.value});
+			}
 		}
 		
     };

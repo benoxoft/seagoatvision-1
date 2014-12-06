@@ -167,6 +167,7 @@ _dropEnabled=scope.$eval(newVal);
 }
 var onDragStart = function(evt, obj) {
 if(! _dropEnabled)return;
+obj.element.addClass('isDragging');
 isTouching(obj.x,obj.y,obj.element);
 }
 var onDragMove = function(evt, obj) {
@@ -175,6 +176,7 @@ isTouching(obj.x,obj.y,obj.element);
 }
 var onDragEnd = function(evt, obj) {
 if(! _dropEnabled)return;
+obj.element.removeClass('isDragging');
 if(isTouching(obj.x,obj.y,obj.element)){
 // call the ngDraggable ngDragSuccess element callback
 if(obj.callback){
