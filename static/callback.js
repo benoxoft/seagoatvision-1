@@ -77,7 +77,7 @@ myApp.controller('callback', ['$scope', function($scope) {
 		var filterchains = [];
 		for(var k in data) {
 			if(data.hasOwnProperty(k)) {
-				filterchains.push({name : k, doc : data[k]});
+				filterchains.push({name : data[k].name, doc : data[k].doc, filters : []});
 			}
 		}
 		$scope.filterChains = filterchains;
@@ -216,5 +216,9 @@ myApp.controller('callback', ['$scope', function($scope) {
     $scope.upload_filterchain_cb = function(data, status) {
 
     };
+    
+    $scope.print_structure = function() {
+		console.log($scope.executions);
+	};
     
 }]);

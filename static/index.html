@@ -8,6 +8,7 @@
 	<script src= "ngDraggable.js"></script>
 	<script src= "seagoat.js"></script>
 	<script src= "callback.js"></script>
+	<script src= "uievent.js"></script>
 	<script type= "text/javascript">
 		
 	</script>
@@ -15,123 +16,126 @@
 </head>
 <body ng-app="myApp">
 	<div ng-controller="api">
-		<div ng-controller="callback">
-			<div id="execution-div">
-				<div class="execution-tab ng-class:{active: $index==activeExecution}" ng-repeat="e in executions" ng-click="changeExecution($index)">{{e.name}}</div>
-				<div class="execution-tab add" ng-click="addExecution()">+</div>
-			</div>
-			<div id="content">
-				<div id="left">
-					<div id="menu">
-						<ul>
-							<li><a href="#" ng-click="newFilterChain()">New filter chain</a></li>
-							<li><a href="#" ng-click="toggleOpenChain()">Open filter chain</a></li>
-							<li><a href="#">Save filter chain</a></li>
-							<li><a href="#">Download filter chain</a></li>
-							<li><a href="#">Upload filter chain</a></li>
-						</ul>
-					</div>
-					<div id="filters" ng-init="get_filter_list(get_filter_list_cb)">
-						<h1>Filter list</h1>
-						<div id="filter-list">
-							<div class="filter-list-item ng-binding ng-class:{selected: $index==selectedFilter}" draggable="false" ng-drag="true" ng-drag-data="f" ng-repeat="f in filters" data="{{f.file}}" ng-click="changeSelectedFilter($index)">{{f.name}}</div>
-						</div>
-						<div>
-							<input type="button" value="Add"/>
-							<input type="button" value="Edit"/>
-							<input type="button" value="Delete"/>
-						</div>
-					</div>
+		<div ng-controller="callback" ng-init="get_execution_list(get_execution_list_cb)">
+			<div ng-controller="uievent">
+				<div id="execution-div">
+					<div class="execution-tab ng-class:{active: $index==activeExecution}" ng-repeat="e in executions track by $index" ng-click="changeExecution($index)">{{e.name}}</div>
+					<div class="execution-tab add" ng-click="addExecution()">+</div>
 				</div>
-				<div id="right">
-					<!--<div>{{executions[activeExecution]}}</div>-->
-					<div ng-show="typeof(execution[activeExecution].filterChain) != 'undefined' && !displayOpenChain">
-						<div ng-show="!displayEditTitle">
-							<h1 id="filterChain-title">
-								{{executions[activeExecution].filterChain.name}}
-							</h1>
-							<div style="float:left;"><a href="#" ng-click="toggleEditTitle()">Edit</a></div>
+				<div id="content">
+					<div id="left">
+						<div id="menu">
+							<ul>
+								<li><a href="#" ng-click="newFilterChain()">New filter chain</a></li>
+								<li><a href="#" ng-click="toggleOpenChain()">Open filter chain</a></li>
+								<li><a href="#">Save filter chain</a></li>
+								<li><a href="#">Download filter chain</a></li>
+								<li><a href="#">Upload filter chain</a></li>
+							</ul>
 						</div>
-						<div ng-show="displayEditTitle">
-							New name : <input type="text" style="width:50%;" ng-model="executions[activeExecution].filterChain.name" />
-							<input type="button" value="Save" ng-click="toggleEditTitle()">
+						<div id="filters" ng-init="get_filter_list(get_filter_list_cb)">
+							<h1>Filter list</h1>
+							<div id="filter-list">
+								<div class="filter-list-item ng-binding ng-class:{selected: $index==selectedFilter}" draggable="false" ng-drag="true" ng-drag-data="f" ng-repeat="f in filters track by $index" data="{{f.file}}" ng-click="changeSelectedFilter($index)">{{f.name}}</div>
+							</div>
+							<div>
+								<input type="button" value="Add"/>
+								<input type="button" value="Edit"/>
+								<input type="button" value="Delete"/>
+							</div>
 						</div>
-						<div class="clear">&nbsp;</div>
-						<div id="chain-filter-list">
-							<div ng-repeat="f in executions[activeExecution].filterChain.filters">
-								<div class="" ng-drop="true" ng-drop-success="onDropComplete($data,$index,$event)">Drop here</div>
-								<table class="chain-filter ng-binding">
-									<tr style="border:1px solid black;">
-										<td class="video section">
-											<div class="filter-delete" ng-click="removeFilter($index)"><div style="margin:-2px -1px;">x</div></div>
-											<div class="filter-name" draggable="false" ng-drag="true" ng-drag-data="$index">{{f.name}}</div>
-											<div class="filter-active"><input type="checkbox" />Active</div>
-											<div class="filter-down"><a href="#"><a href="#" ng-click="changeOrder($index,$index + 1)"><img src="images/d.png" alt="D" /></a></div>
-											<div class="filter-up"><a href="#"><a href="#" ng-click="changeOrder($index,$index - 1)"><img src="images/u.png" alt="U" /></a></div>
-											<div class="filter-video"><img src="{{f.feed}}" ng-click="videoClick($index)"/></div>
-										</td>
-										<td class="code section ng-hide" ng-show="code">
-											<div>
-												Execution code :<br/>
-												<textarea class="textarea">{{f.executionCode}}</textarea>
-											</div>
-											<div>
-												Working copy : <br/>
-												<textarea class="textarea">{{f.workingCopy}}</textarea>
-											</div>
-											<div class="chain-filter-radios">
-												<input type="radio" ng-model="f.language" name="c" radiogroup="code-type">C++<br/>
-												<input type="radio" ng-model="f.language" name="py" radiogroup="code-type">Python
-											</div>
-											<div class="chain-filter-buttons">
-												<input type="button" value="Save" />
-												<input type="button" value="Cancel" />
-											</div>
-										</td>
-										<td class="section-button" ng-click="code = !code">
-											<div class="text">Code</div>
-										</td>
-										<td class="param section ng-hide" ng-show="params">
-											<div class="search"><div class="label">Search : </div><div class="input"><input type="text" name="search"></div></div>
-											<div class="param-list">
-												<div ng-repeat="p in f.params" ng-switch="p.type">
-													<div class="param-group" ng-switch-when="group">
-														<h1>{{p.name}}</h1>
-														<div class="param-item" ng-repeat="v in p.value">
-															<div class="param-label">{{v.name}}</div>
-															<div class="param-input"><input type="text" ng-model="v.value"></div>
+					</div>
+					<div id="right">
+						<!--<div>{{executions[activeExecution]}}</div>-->
+						<div ng-show="typeof(execution[activeExecution].filterChain) != 'undefined' && !displayOpenChain">
+							<div ng-show="!displayEditTitle">
+								<h1 id="filterChain-title">
+									{{executions[activeExecution].filterChain.name}}
+								</h1>
+								<div style="float:left;"><a href="#" ng-click="toggleEditTitle(false)">Edit</a></div>
+							</div>
+							<div ng-show="displayEditTitle">
+								New name : <input type="text" style="width:50%;" ng-model="executions[activeExecution].filterChain.newname" />
+								<input type="button" value="Save" ng-click="toggleEditTitle(true);">
+								<input type="button" value="Cancel" ng-click="toggleEditTitle(false);">
+							</div>
+							<div class="clear">&nbsp;</div>
+							<div id="chain-filter-list">
+								<div ng-repeat="f in executions[activeExecution].filterChain.filters track by $index">
+									<div class="" ng-drop="true" ng-drop-success="onDropComplete($data,$index,$event)">Drop here</div>
+									<table class="chain-filter ng-binding">
+										<tr style="border:1px solid black;">
+											<td class="video section">
+												<div class="filter-delete" ng-click="removeFilter($index)"><div style="margin:-2px -1px;">x</div></div>
+												<div class="filter-name" draggable="false" ng-drag="true" ng-drag-data="$index">{{f.name}}</div>
+												<div class="filter-active"><input type="checkbox" />Active</div>
+												<div class="filter-down"><a href="#"><a href="#" ng-click="changeOrder($index,$index + 1)"><img src="images/d.png" alt="D" /></a></div>
+												<div class="filter-up"><a href="#"><a href="#" ng-click="changeOrder($index,$index - 1)"><img src="images/u.png" alt="U" /></a></div>
+												<div class="filter-video"><img src="{{f.feed}}" ng-click="videoClick($index)"/></div>
+											</td>
+											<td class="code section ng-hide" ng-show="code">
+												<div>
+													Execution code :<br/>
+													<textarea class="textarea">{{f.executionCode}}</textarea>
+												</div>
+												<div>
+													Working copy : <br/>
+													<textarea class="textarea">{{f.workingCopy}}</textarea>
+												</div>
+												<div class="chain-filter-radios">
+													<input type="radio" ng-model="f.language" name="c" radiogroup="code-type">C++<br/>
+													<input type="radio" ng-model="f.language" name="py" radiogroup="code-type">Python
+												</div>
+												<div class="chain-filter-buttons">
+													<input type="button" value="Save" />
+													<input type="button" value="Cancel" />
+												</div>
+											</td>
+											<td class="section-button" ng-click="code = !code">
+												<div class="text">Code</div>
+											</td>
+											<td class="param section ng-hide" ng-show="params">
+												<div class="search"><div class="label">Search : </div><div class="input"><input type="text" name="search"></div></div>
+												<div class="param-list">
+													<div ng-repeat="p in f.params track by $index" ng-switch="p.type">
+														<div class="param-group" ng-switch-when="group">
+															<h1>{{p.name}}</h1>
+															<div class="param-item" ng-repeat="v in p.value track by $index">
+																<div class="param-label">{{v.name}}</div>
+																<div class="param-input"><input type="text" ng-model="v.value"></div>
+															</div>
+															<div class="clear">&nbsp;</div>
 														</div>
-														<div class="clear">&nbsp;</div>
-													</div>
-													<div class="param-item" style="padding:0px 11px;" ng-switch-default>
-														<div class="param-label">{{p.name}}</div>
-														<div class="param-input"><input type="text" ng-model="p.value"></div>
+														<div class="param-item" style="padding:0px 11px;" ng-switch-default>
+															<div class="param-label">{{p.name}}</div>
+															<div class="param-input"><input type="text" ng-model="p.value"></div>
+														</div>
 													</div>
 												</div>
-											</div>
-										</td>
-										<td class="section-button" ng-click="params = !params">
-											<div class="text">Params</div>
-										</td>
-										<td style="min-width:1px;"><img src="images/blank.gif" /></td>
-									</tr>
-								</table>
+											</td>
+											<td class="section-button" ng-click="params = !params">
+												<div class="text">Params</div>
+											</td>
+											<td style="min-width:1px;"><img src="images/blank.gif" /></td>
+										</tr>
+									</table>
+								</div>
+								<div class="" ng-drop="true" ng-drop-success="onDropComplete($data,-1,$event)">Drop here</div>
 							</div>
-							<div class="" ng-drop="true" ng-drop-success="onDropComplete($data,-1,$event)">Drop here</div>
+						</div>
+						<div ng-show="displayOpenChain" ng-init="get_filterchain_list(get_filterchain_list_cb)">
+							<h1>Select a filter chain to open : </h1>
+							<div id="filter-list">
+								<div class="filter-list-item ng-class:{selected: $index==selectedFilterChain}" ng-repeat="cf in filterChains track by $index" ng-click="changeSelectedFilterChain($index)">{{cf.name}}</div>
+							</div>
+							<div>
+								<input type="button" value="Open" ng-click="openFilterChain(filterChains[selectedFilterChain])" />
+								<input type="button" value="Cancel" ng-click="toggleOpenChain()" />
+							</div>
 						</div>
 					</div>
-					<div ng-show="displayOpenChain">
-						<h1>Select a filter chain to open : </h1>
-						<div id="filter-list">
-							<div class="filter-list-item ng-class:{selected: $index==selectedFilterChain}" ng-repeat="cf in filterChains" ng-click="changeSelectedFilterChain($index)">{{cf.name}}</div>
-						</div>
-						<div>
-							<input type="button" value="Open" ng-click="openFilterChain()" />
-							<input type="button" value="Cancel" ng-click="toggleOpenChain()" />
-						</div>
-					</div>
+					<div class="clear">&nbsp;</div>
 				</div>
-				<div class="clear">&nbsp;</div>
 			</div>
 		</div>
 	</div>
