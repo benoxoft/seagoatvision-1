@@ -29,18 +29,23 @@ myApp.controller('callback', ['$scope', function($scope) {
     };
 
     $scope.get_execution_info_cb = function(data, status) {
+		console.log("get_execution_info_cb");
+		console.log(data.execution_name);
 		var exec = $scope.executions.filter(function(obj){return obj.name === data.execution_name;})[0];
-		exec.media_name = data.info.media_name;
-		exec.filterChain = {name : data.info.filterchain_name};
-		$scope.get_filterchain_info(data.filterchain_name, $scope.get_filterchain_info_cb);
+		console.log(data.info.filterchain);
+		
+		exec.media_name = data.info.media;
+		exec.filterChain = {name : data.info.filterchain};
+		$scope.get_filterchain_info(data.info.filterchain, $scope.get_filterchain_info_cb);
     };
 
     $scope.get_execution_list_cb = function(data, status) {
+		console.log("get_execution_list_cb");
 		for(k in data) {
 			var exec = $scope.executions.filter(function(obj){return obj.name === k;})[0];
 			if(typeof(exec) == 'undefined') {
-				$scope.executions.push({name : k});
-				$scope.get_execution_info(k, $scope.get_execution_info_cb);
+				$scope.executions.push({name : data[k]});
+				$scope.get_execution_info(data[k], $scope.get_execution_info_cb);
 			}
 		}
     };
@@ -61,7 +66,10 @@ myApp.controller('callback', ['$scope', function($scope) {
     };
 
     $scope.get_filterchain_info_cb = function(data, status) {
-		var exec = $scope.executions.filter(function(obj){return obj.filterChain.name === data.filterchain_name;})[0];			
+		console.log("get_filterchain_info_cb");
+		console.log(data);
+		var exec = $scope.executions.filter(function(obj){return obj.filterChain.name === data.filterchain_name;})[0];
+		
 		var fc = exec.filterChain;
 		
 		fc.default_media = data.info.default_media;
