@@ -1,4 +1,4 @@
-from flask import Flask, request, Response, redirect
+from flask import Flask, request, Response, redirect, jsonify
 app = Flask(__name__)
 import sys
 module = sys.modules[__name__]
@@ -120,9 +120,9 @@ def get_param_media(media_name, param_name):
 
 @app.route('/api/get_params_filterchain/<execution_name>/<filter_name>')
 def get_params_filterchain(execution_name, filter_name):
-    if execution_name == 'undefined':
-        execution_name = None
-    return json.dumps({"execution_name" : execution_name, "filter_name" : filter_name, "params" : c.get_params_filterchain(execution_name, filter_name)})
+    params = c.get_params_filterchain(execution_name, filter_name)
+    print params
+    return json.dumps({"execution_name" : execution_name, "filter_name" : filter_name, "params" : {k : v.serialize() for k, v in c.get_params_filterchain(execution_name, filter_name).items()}})
 
 @app.route('/api/get_params_media/<media_name>')
 def get_params_media(media_name):

@@ -61,12 +61,14 @@ myApp.controller('callback', ['$scope', function($scope) {
     };
 
     $scope.get_filterchain_info_cb = function(data, status) {
-		var fc = $scope.executions.filter(function(obj){return obj.filterChain.name === data.filterchain_name;})[0];			
+		var exec = $scope.executions.filter(function(obj){return obj.filterChain.name === data.filterchain_name;})[0];			
+		var fc = exec.filterChain;
+		
 		fc.default_media = data.info.default_media;
 		fc.filters = [];
 		for(f in data.info.filters) {
-			fc.filters.push({name : f.name, executionCode : '', workingCopy : '', language : 'c', feed : ''});
-			
+			fc.filters.push({name : f.name, executionCode : '', workingCopy : '', language : 'c', feed : '', params : []});
+			$scope.get_params_filterchain(exec.name, f.name, $scope.get_params_filterchain_cb);
 		}
 			
     };
@@ -104,7 +106,9 @@ myApp.controller('callback', ['$scope', function($scope) {
     };
 
     $scope.get_params_filterchain_cb = function(data, status) {
-
+		var exec = $scope.executions.filter(function(obj){return obj.name === data.execution_name;})[0];			
+		var filter = exec.filterChain.filters.filter(function(obj){return obj.name === data.filter_name;})[0];			
+		filter.params = {}
     };
 
     $scope.get_params_media_cb = function(data, status) {

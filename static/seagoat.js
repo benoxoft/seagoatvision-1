@@ -370,6 +370,14 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
 		{name:'c', description:'c'}
 	];*/
 	
+	$scope.filterChains=[
+		{name:'FC1', doc:'abc'},
+		{name:'FC2', doc:'abc'},
+		{name:'FC3', doc:'abc'},
+		{name:'FC4', doc:'abc'},
+		{name:'FC5', doc:'abc'}
+	];
+	
 	$scope.executions=[
 		{
 			name:'Execution 1',
@@ -431,6 +439,7 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
 	
 	$scope.activeExecution=0;
 	$scope.selectedFilter=-1;
+	$scope.selectedFilterChain=-1;
 	$scope.displayOpenChain = false;
 	$scope.displayEditTitle = false;
 	
@@ -445,13 +454,13 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
 			$scope.executions[$scope.activeExecution].filterChain.filters.push(data);
 		else
 			$scope.executions[$scope.activeExecution].filterChain.filters.splice(ind,0,data);
-		$scope.apply();
+		//$scope.apply();
 	};
 	
 	$scope.removeFilter=function(ind){
 		if( confirm("Are you sure you want to remove this filter from the chain ?") ){
 			$scope.executions[$scope.activeExecution].filterChain.filters.splice(ind,1);
-			$scope.apply();
+			//$scope.apply();
 		}
 	};
 	
@@ -468,6 +477,10 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
 	
 	$scope.changeSelectedFilter=function(ind){
 		($scope.selectedFilter==ind) ? $scope.selectedFilter=-1 : $scope.selectedFilter=ind;
+	};
+	
+	$scope.changeSelectedFilterChain=function(ind){
+		($scope.selectedFilterChain==ind) ? $scope.selectedFilterChain=-1 : $scope.selectedFilterChain=ind;
 	};
 	
 	$scope.videoClick=function(filterInd){
@@ -490,7 +503,29 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
 	
 	$scope.newFilterChain = function(){
 		delete $scope.executions[$scope.activeExecution].filterChain;
-		$scope.executions[$scope.activeExecution].filterChain = {filter:[]};
+		$scope.executions[$scope.activeExecution].filterChain = {filters:[]};
 		$scope.displayEditTitle = true;
 	};
+	
+	$scope.openFilterChain = function(){
+		if($scope.selectedFilterChain < 0){
+			alert("Please select a filter chain.");
+		}else{
+			//open
+			delete $scope.executions[$scope.activeExecution].filterChain;
+			$scope.executions[$scope.activeExecution].filterChain = $scope.filterChains[$scope.selectedFilterChain];
+			$scope.executions[$scope.activeExecution].filterChain.filters = [];
+			//$scope.apply();
+			$scope.toggleOpenChain();
+		}
+	};
+	
+	$scope.toggleOpenChain = function(){
+		$scope.selectedFilterChain = -1;
+		$scope.displayOpenChain = !$scope.displayOpenChain;
+	};
+	
+	$scope.toggleEditTitle = function(){
+		$scope.displayEditTitle = !$scope.displayEditTitle;
+	}
 }]);

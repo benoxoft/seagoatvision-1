@@ -64,6 +64,12 @@ input[type="button"]{
 	position:relative;
 }
 
+#filterChain-title{
+	width:auto;
+	margin-right:10px;
+	float:left;
+}
+
 #filter-list{
 	width:230px;
 	height:300px;
