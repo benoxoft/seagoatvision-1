@@ -293,16 +293,18 @@ ul.draggable-objects:after{
 	background-color:#ccc;
 }
 [ng-drop]{
-	width:100%;
+	width:calc(100% - 5px);
 	color:#fff;
 	border:solid 2px white;
-	height:15px;
+	padding:2px;
+	height:11px;
 	position: relative;
+	font-size:10px;
 }
 
 [ng-drop].dragging{
-	background-color:orange;
-	color:#ccaa55;
+	background-color:#ffcc77;
+	color:#fff;
 }
 
 [ng-drop].drag-enter{

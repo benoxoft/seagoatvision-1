@@ -93,7 +93,7 @@ _ty = _my - element.centerY - $window.scrollTop();
 _tx = offset.left - $window.scrollLeft();
 _ty = offset.top - $window.scrollTop();
 }
-moveElement(_tx, _ty);
+//moveElement(_tx, _ty);
 $document.on(_moveEvents, onmove);
 $document.on(_releaseEvents, onrelease);
 $rootScope.$broadcast('draggable:start', {x:_mx, y:_my, tx:_tx, ty:_ty, event:evt, element:element, data:_data});
