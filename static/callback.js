@@ -66,7 +66,8 @@ myApp.controller('callback', ['$scope', function($scope) {
 		
 		fc.default_media = data.info.default_media;
 		fc.filters = [];
-		for(f in data.info.filters) {
+		for(fname in data.info.filters) {
+			var f = data.info.filters[fname];
 			fc.filters.push({name : f.name, executionCode : '', workingCopy : '', language : 'c', feed : '', params : []});
 			$scope.get_params_filterchain(exec.name, f.name, $scope.get_params_filterchain_cb);
 		}
@@ -102,13 +103,21 @@ myApp.controller('callback', ['$scope', function($scope) {
     };
 
     $scope.get_param_media_cb = function(data, status) {
-
+		//params = [];
+		//for(var paramName in data.params){
+		//	params.push({name:paramName, value:data.params[paramName].value});
+		//}
+		//{params: {active_filter : {value:123}, param_2 : {}, param_3: {}}}
     };
 
     $scope.get_params_filterchain_cb = function(data, status) {
 		var exec = $scope.executions.filter(function(obj){return obj.name === data.execution_name;})[0];			
-		var filter = exec.filterChain.filters.filter(function(obj){return obj.name === data.filter_name;})[0];			
-		filter.params = {}
+		var filter = exec.filterChain.filters.filter(function(obj){return obj.name === data.filter_name;})[0];
+		for(pname in data.params) {
+			var newp = data.params[pname]
+			filter.params.push({name:pname, type:'text', value:newp.value});	
+		}
+		
     };
 
     $scope.get_params_media_cb = function(data, status) {
