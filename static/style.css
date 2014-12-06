@@ -300,9 +300,9 @@ ul.draggable-objects:after{
 	position: relative;
 }
 
-[ng-drop].isDragging{
-	background-color:#f8f8f8;
-	color:#ccc;
+[ng-drop].dragging{
+	background-color:orange;
+	color:#ccaa55;
 }
 
 [ng-drop].drag-enter{

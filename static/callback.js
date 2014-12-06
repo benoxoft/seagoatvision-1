@@ -75,7 +75,13 @@ myApp.controller('callback', ['$scope', function($scope) {
     };
 
     $scope.get_filterchain_list_cb = function(data, status) {
-
+		filterchains = [];
+		for(var k in data) {
+			if(data.hasOwnProperty(k)) {
+				filterchains.push({name : k, doc : data[k]});
+			}
+		}
+		$scope.filterChains = filterChains;
     };
 
     $scope.get_fps_execution_cb = function(data, status) {
