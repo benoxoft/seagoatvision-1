@@ -14,11 +14,6 @@ input[type="button"]{
 	width:75px;
 }
 
-a{
-	text-decoration:none;
-	color:inherit;
-}
-
 .clear{
 	clear:both;
 	height:1px;
@@ -147,14 +142,20 @@ a{
 }
 
 .chain-filter .filter-delete{
-	width: 12px;
-	height: 19px;
-	background-color: #F00;
+	width: 10px;
+	height: 17px;
+	background-color: #F66;
 	color: #FFF;
 	float: left;
 	padding: 0px 0px 0px 4px;
 	margin-right:5px;
 	font-family: sans-serif;
+	cursor:pointer;
+	border:1px solid #F00;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px; /* future proofing */
+	-khtml-border-radius: 5px; /* for old Konqueror browsers */
 }
 
 .chain-filter .filter-name{

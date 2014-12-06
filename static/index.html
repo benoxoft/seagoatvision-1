@@ -63,7 +63,7 @@
 								<table class="chain-filter ng-binding">
 									<tr style="border:1px solid black;">
 										<td class="video section">
-											<div class="filter-delete"><a href="#" ng-click="removeFilter($index)">x</a></div>
+											<div class="filter-delete" ng-click="removeFilter($index)"><div style="margin:-2px -1px;">x</div></div>
 											<div class="filter-name" draggable="false" ng-drag="true" ng-drag-data="$index">{{f.name}}</div>
 											<div class="filter-active"><input type="checkbox" />Active</div>
 											<div class="filter-down"><a href="#"><a href="#" ng-click="changeOrder($index,$index + 1)"><img src="images/d.png" alt="D" /></a></div>
