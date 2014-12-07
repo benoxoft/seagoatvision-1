@@ -73,11 +73,13 @@
 												<div class="filter-active"><input type="checkbox" ng-model="f.active" ng-change="updateActive($index, f.active)" />Active</div>
 												<div class="filter-down"><a href="#"><a href="#f{{$index + 1}}" ng-click="changeOrder($index,$index + 1)"><img src="images/d.png" alt="D" /></a></div>
 												<div class="filter-up"><a href="#"><a href="#f{{$index - 1}}" ng-click="changeOrder($index,$index - 1)"><img src="images/u.png" alt="U" /></a></div>
-												<div class="filter-video"><img src="{{f.feed}}" ng-click="videoClick($index)"/></div>
+												<div class="filter-video" ng-click="videoClick($index)" ng-hide="!f.feed"><img ng-src="{{f.feed}}" /></div>
+												<div class="filter-video" ng-click="videoClick($index)" ng-show="!f.feed"><div>|></div></div>
 											</td>
 											<td class="video section" ng-show="f.name == '-- empty filter --'">
 												<div class="filter-name">Raw image</div>
-												<div class="filter-video"><img src="{{f.feed}}" ng-click="videoClick($index)"/></div>
+												<div class="filter-video" ng-click="videoClick($index)" ng-hide="!f.feed"><img ng-src="{{f.feed}}" /></div>
+												<div class="filter-video" ng-click="videoClick($index)" ng-show="!f.feed"><div class="play">&#9658;</div></div>
 											</td>
 											<td class="code section ng-hide" ng-show="code">
 												<div>

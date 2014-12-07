@@ -219,6 +219,23 @@ input[type="button"]{
 	height:180px;
 	border:solid 1px black;
 	clear:both;
+	cursor:pointer;
+}
+
+.chain-filter .filter-video .play{
+	/*width:480px;
+	height:270px;
+	Pour la présentation : */
+	width:80px;
+	height:45px;
+	border:solid 1px red;
+	background-color: red;
+	border-radius : 15px;
+	text-align:center;
+	margin-top:65px;
+	margin-left: 120px;
+	font-size : 36px;
+	color : white;
 }
 
 .chain-filter .textarea{

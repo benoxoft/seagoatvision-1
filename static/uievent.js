@@ -123,10 +123,16 @@
 	};
 	
 	$scope.videoClick=function(filterInd){
-		if($scope.executions[$scope.activeExecution].filterChain.filters[filterInd].feed == 'images/d.png')
-			$scope.executions[$scope.activeExecution].filterChain.filters[filterInd].feed = 'images/u.png';
-		else
-			$scope.executions[$scope.activeExecution].filterChain.filters[filterInd].feed = 'images/d.png';
+		var exec = $scope.executions[$scope.activeExecution];
+		var exec_name = exec.name;
+		var filter = exec.filterChain.filters[filterInd];
+		var filter_name = filter.name;
+		
+		if(!filter.feed) {
+			$scope.add_image_observer(exec_name, filter_name, $scope.add_image_observer_cb);
+		} else {
+			$scope.remove_image_observer(exec_name, filter_name, $scope.remove_image_observer_cb);
+		}
 	};
 	
 	$scope.changeExecution = function(execInd){
@@ -155,6 +161,7 @@
 			delete $scope.executions[$scope.activeExecution].filterChain;
 			$scope.executions[$scope.activeExecution].filterChain = data;
 			$scope.toggleOpenChain();
+			$scope.updateFilterchainToServer();
 		}
 	};
 	
@@ -204,4 +211,5 @@
 	$scope.updateActive = function(ind, active){
 		$scope.executions[$scope.activeExecution].filterChain.filters[ind].params.filter(function(obj){return obj.name === 'Generic';})[0].value.filter(function(obj){return obj.name === '_active_filter';})[0].value = active;
 	}
+	
 }]);

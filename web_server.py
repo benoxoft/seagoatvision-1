@@ -9,6 +9,9 @@ from PIL import Image
 import StringIO
 import threading
 
+import eventlet
+eventlet.monkey_patch()
+
 @app.route('/')
 def index():
     return redirect("static/index.html")
@@ -21,7 +24,7 @@ from SeaGoatVision.server.core.cmdHandler import CmdHandler
 from SeaGoatVision.commons import global_env
 global_env.set_is_local(True)
 c = CmdHandler()
-x = []
+observers = {}
 
 @app.route('/api/testt', methods=["POST"])
 def testt():
@@ -34,17 +37,15 @@ def add_image_observer():
     post = request.get_json()
     execution_name = post.get("execution_name")
     filter_name = post.get("filter_name")
-    print execution_name, filter_name
-    z = ImageListener()
-    x.append(z)
-    print "ALL IS FINE HERE"
-    if c.add_image_observer(z.send,
-                            execution_name,
-                            filter_name):
-        print "ALL IS COOL HERE"
-        #c.subscriber.subscribe("media.generator", z.update_fps)
-        #c.cmd_to_media("File", "frame_media", 0)
-    return json.dumps(True)
+
+    il = ImageListener()
+    if not observers[execution_name]:
+        observers[execution_name] = {}
+    observers[execution_name][filter_name] = il
+    
+    c.add_image_observer(il.send, execution_name, filter_name)
+    return json.dumps({"execution_name" : execution_name, "filter_name" : filter_name})
+
 @app.route('/api/add_output_observer/<execution_name>')
 def add_output_observer(execution_name):
     return json.dumps(c.add_output_observer(execution_name))
@@ -150,8 +151,12 @@ def modify_filterchain():
 def reload_filter(filter_name):
     return json.dumps(c.reload_filter(filter_name))
 
-@app.route('/api/remove_image_observer/<observer>/<execution_name>/<filter_name>')
-def remove_image_observer(observer, execution_name, filter_name):
+@app.route('/api/remove_image_observer', methods=['POST'])
+def remove_image_observer():
+    post = request.get_json()
+    execution_name = post.get("execution_name")
+    filter_name = post.get("filter_name")
+    observer = observers[execution_name][filter_name].send
     return json.dumps(c.remove_image_observer(observer, execution_name, filter_name))
 
 @app.route('/api/remove_output_observer/<execution_name>')
@@ -240,9 +245,10 @@ class ImageListener:
     def __init__(self):
         print "INIT CALLED"
         self.image = None
-        #self.evt = threading.Event()
+        self.evt = threading.Event()
 
     def send(self, output):
+        print "SEND CALLED"
         if output is None:
             return
         img = Image.fromarray(output)
@@ -251,19 +257,20 @@ class ImageListener:
         contents = buff.getvalue()
         buff.close()
         self.image = contents
-        #self.evt.set()
+        self.evt.set()
     
     def update_fps(self):
         pass
     
     def gen(self):
         while True:
-            #self.evt.clear()
-            #self.evt.wait()
+            self.evt.clear()
+            self.evt.wait()
+            print "YIELD"
             yield (b'--frame\r\n'
                    b'Content-Type: image/bmp\r\n\r\n' + self.image + b'\r\n')
     
-@app.route('/video_feed')
+@app.route('/video_feed/')
 def video_feed():
     if len(x) == 0:
         return ""
@@ -271,7 +278,17 @@ def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
     return Response(web.gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
+@app.route('/live_feed/<execution_name>/<filter_name>')
+def live_feed(execution_name, filter_name):
+    #post = request.get_json()
+    #execution_name = post.get("execution_name")
+    #filter_name = post.get("filter_name")
+
+    web = observers[execution_name][filter_name]
+    if web is None:
+        return ""
+    return Response(web.gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == '__main__':
-    app.run(debug=True, use_reloader=False, host="0.0.0.0", port=8080)
+    app.run(debug=True, use_reloader=False, host="0.0.0.0", port=8000)
     

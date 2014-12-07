@@ -209,11 +209,16 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
         .error($scope.default_error(cb))
     };
 
-    $scope.remove_image_observer = function(execution_name, filter_name, cb) {
-        $http.get("/api/remove_image_observer/" + execution_name + "/" + filter_name)
-        .success($scope.default_success(cb))
-        .error($scope.default_error(cb))
-    };
+	$scope.remove_image_observer = function(execution_name, filter_name, cb) {
+		$http({
+		  url: "/api/remove_image_observer",
+		  method: "POST",
+		  data: JSON.stringify({execution_name : execution_name, filter_name : filter_name}),
+		  headers: { 'Content-Type': 'application/json' }
+		})        
+		.success($scope.default_success(cb))
+        .error($scope.default_error(cb));
+	};
 
     $scope.remove_output_observer = function(execution_name, cb) {
         $http.get("/api/remove_output_observer/" + execution_name)
@@ -267,7 +272,7 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
 		$http({
 		  url: "/api/start_filterchain_execution",
 		  method: "POST",
-		  data: JSON.stringify({execution_name : execution_name, media_name : media_name, filterchain_name : filterchain_name, file_name : file_name, is_client_manager : true}),
+		  data: JSON.stringify({execution_name : execution_name, media_name : media_name, filterchain_name : filterchain_name, file_name : file_name, is_client_manager : false}),
 		  headers: { 'Content-Type': 'application/json' }
 		}).success($scope.default_success(cb))
           .error($scope.default_error(cb));
@@ -369,7 +374,7 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
 		//$scope.start_filterchain_execution("banane", "generator", "super", null, false, $scope.default_test_callback);
 		//$scope.add_image_observer("banane", "BGR2HSV-2", $scope.default_test_callback);
 		$scope.fufufu = '/video_feed';
-		$scope.testt($scope.testt_cb);
+		//$scope.testt($scope.testt_cb);
 	};
 	
 	$scope.findWithAttr = function(array, attr, value) {

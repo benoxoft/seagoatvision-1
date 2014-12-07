@@ -5,7 +5,12 @@ myApp.controller('callback', ['$scope', function($scope) {
     };
 
     $scope.add_image_observer_cb = function(data, status) {
+		var exec = $scope.executions.filter(function(obj){return obj.name === data.execution_name;})[0];
+		var filter = exec.filterChain.filters.filter(function(obj){return obj.name === data.filter_name;})[0];
+		var exec_name = exec.name;
+		var filter_name = filter.name;
 
+		filter.feed = "/live_feed/" + exec_name + "/" + filter_name;
     };
 
     $scope.add_output_observer_cb = function(data, status) {
@@ -67,7 +72,7 @@ myApp.controller('callback', ['$scope', function($scope) {
 		fc.filters = [];
 		for(fname in data.info.filters) {
 			var f = data.info.filters[fname];
-			fc.filters.push({name : f.name, executionCode : '', workingCopy : '', language : 'c', feed : '', params : []});
+			fc.filters.push({name : f.name, executionCode : '', workingCopy : '', language : 'c', params : []});
 			$scope.get_params_filterchain(exec.name, f.name, $scope.get_params_filterchain_cb);
 		}
 			
@@ -154,7 +159,12 @@ myApp.controller('callback', ['$scope', function($scope) {
     };
 
     $scope.remove_image_observer_cb = function(data, status) {
+		var exec = $scope.executions.filter(function(obj){return obj.name === data.execution_name;})[0];
+		var filter = exec.filterChain.filters.filter(function(obj){return obj.name === data.filter_name;})[0];
+		var exec_name = exec.name;
+		var filter_name = filter.name;
 
+		delete filter.feed;
     };
 
     $scope.remove_output_observer_cb = function(data, status) {
