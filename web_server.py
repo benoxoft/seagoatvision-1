@@ -47,7 +47,6 @@ def add_image_observer():
     return json.dumps(True)
 @app.route('/api/add_output_observer/<execution_name>')
 def add_output_observer(execution_name):
-    
     return json.dumps(c.add_output_observer(execution_name))
 
 @app.route('/api/cmd_to_media/<media_name>/<cmd>/<value>')
@@ -132,11 +131,14 @@ def get_params_media(media_name):
 def is_connected():
     return json.dumps(c.is_connected())
 
-@app.route('/api/modify_filterchain/<old_filterchain_name>/<new_filterchain_name>/<lst_str_filters>/<default_media>')
-def modify_filterchain(old_filterchain_name,
-                        new_filterchain_name,
-                        lst_str_filters,
-                        default_media):
+@app.route('/api/modify_filterchain', methods=["POST"])
+def modify_filterchain():
+    post = request.get_json()
+    execution_name = post.get("execution_name")
+    old_filterchain_name = post.get("old_filterchain_name")
+    new_filterchain_name = post.get("new_filterchain_name")
+    lst_str_filters = post.get("lst_str_filters")
+    default_media = post.get("default_media")
     return json.dumps(c.modify_filterchain(old_filterchain_name, new_filterchain_name, lst_str_filters, default_media))
 
 @app.route('/api/reload_filter/<filter_name>')

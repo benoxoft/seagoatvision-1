@@ -3,6 +3,11 @@ var myApp = angular.module('myApp', ['ngDraggable']);
 myApp.controller('api', ['$scope', '$http', function($scope, $http) {
 	
 	$scope.executions=[];
+	$scope.activeExecution=0;
+	$scope.selectedFilter=-1;
+	$scope.selectedFilterChain=-1;
+	$scope.displayOpenChain = false;
+	$scope.displayEditTitle = false;
 
 	$scope.default_success = function(cb) {
 		return function(data, status) {
@@ -178,12 +183,15 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
         .error($scope.default_error(cb))
     };
 
-    // TODO: PAS BON POUR CETTE METHODE!!!!!!
-    $scope.modify_filterchain = function(old_filterchain_name, new_filterchain_name, lst_str_filters, default_media, cb) {
-        $http.get("/api/modify_filterchain/" + old_filterchain_name + "/" + new_filterchain_name + "/" + lst_str_filters + "/" + default_media)
-        .success($scope.default_success(cb))
-        .error($scope.default_error(cb))
-    };
+	$scope.modify_filterchain = function(old_filterchain_name, new_filterchain_name, lst_str_filters, default_media, cb) {
+		$http({
+		  url: "/api/modify_filterchain",
+		  method: "POST",
+		  data: JSON.stringify({old_filterchain_name : old_filterchain_name, new_filterchain_name : new_filterchain_name, lst_str_filters : lst_str_filters, default_media : default_media }),
+		  headers: { 'Content-Type': 'application/json' }
+		}).success($scope.default_success(cb))
+        .error($scope.default_error(cb));
+	};
 
     $scope.reload_filter = function(filter_name, cb) {
         $http.get("/api/reload_filter/" + filter_name)
@@ -245,11 +253,11 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
         .error($scope.default_error(cb))
     };
 
-	$scope.start_filterchain_execution = function(execution_name, media_name, filterchain_name, file_name, is_client_manager, cb) {
+	$scope.start_filterchain_execution = function(execution_name, media_name, filterchain_name, file_name, cb) {
 		$http({
 		  url: "/api/start_filterchain_execution",
 		  method: "POST",
-		  data: JSON.stringify({execution_name : execution_name, media_name : media_name, filterchain_name : filterchain_name, file_name : file_name, is_client_manager : is_client_manager}),
+		  data: JSON.stringify({execution_name : execution_name, media_name : media_name, filterchain_name : filterchain_name, file_name : file_name, is_client_manager : true}),
 		  headers: { 'Content-Type': 'application/json' }
 		}).success($scope.default_success(cb))
           .error($scope.default_error(cb));

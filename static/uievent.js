@@ -77,12 +77,6 @@
 		},
 	];*/
 	
-	$scope.activeExecution=0;
-	$scope.selectedFilter=-1;
-	$scope.selectedFilterChain=-1;
-	$scope.displayOpenChain = false;
-	$scope.displayEditTitle = false;
-	
   	$scope.onDropComplete=function(data,ind,evt){
 		if(!isNaN(data)){
 			oldInd = data;
@@ -164,14 +158,30 @@
 	};
 
 	$scope.toggleEditTitle = function(save){
-		$scope.executions[activeExecution].filterChain.newname = $scope.executions[activeExecution].filterChain.newname;
-		$scope.displayEditTitle = !$scope.displayEditTitle;
 
-		if(save && $scope.displayEditTitle) {
-			
+		var exec = $scope.executions[$scope.activeExecution];
+		
+		if(save && $scope.displayEditTitle) {  
+			var filters = [];
+			for(fname in exec.filterChain.filters) {
+				filters.push(exec.filterChain.filters[fname].name);
+			}
+			$scope.modify_filterchain(
+				exec.filterChain.name, 
+				exec.filterChain.newname, 
+				filters,
+				exec.filterChain.media,
+				$scope.modify_filterchain_cb);
+			$scope.stop_filterchain_execution(exec.name, $scope.stop_filterchain_execution_cb);
+			$scope.start_filterchain_execution(exec.name, exec.media_name, exec.filterChain.newname, exec.file_name, $scope.start_filterchain_execution_cb);
+				
+			exec.filterChain.name = exec.filterChain.newname;
+			delete exec.filterChain.newname;
+		} else {
+			exec.filterChain.newname = exec.filterChain.name;
 		}
 		
-		$scope.print_structure();
+		$scope.displayEditTitle = !$scope.displayEditTitle;
 	}
 
 }]);
