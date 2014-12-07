@@ -117,8 +117,11 @@ def get_param_filterchain(execution_name, filter_name, param_name):
 def get_param_media(media_name, param_name):
     return json.dumps(c.get_param_media(media_name, param_name))
 
-@app.route('/api/get_params_filterchain/<execution_name>/<filter_name>')
-def get_params_filterchain(execution_name, filter_name):
+@app.route('/api/get_params_filterchain', methods=["POST"])
+def get_params_filterchain():
+    post = request.get_json()
+    execution_name = post.get("execution_name")
+    filter_name = post.get("filter_name")
     print execution_name
     print filter_name
     params = c.get_params_filterchain(execution_name, filter_name)

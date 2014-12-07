@@ -186,7 +186,7 @@
 			filters.push(exec.filterChain.filters[fname].name);
 		}
 		var newname = exec.filterChain.name;
-		if(exec.filterChain.newname != 'undefined') {
+		if(exec.filterChain.newname) {
 			newname = exec.filterChain.newname;
 		}
 		$scope.modify_filterchain(
@@ -195,9 +195,10 @@
 			filters,
 			exec.filterChain.media,
 			$scope.modify_filterchain_cb);
-			$scope.stop_filterchain_execution(exec.name, $scope.stop_filterchain_execution_cb);
-			$scope.start_filterchain_execution(exec.name, "generator", exec.filterChain.newname, exec.file_name, $scope.start_filterchain_execution_cb);
-			$scope.get_filterchain_info(exec.filterChain.newname, $scope.get_filterchain_info_cb);
+			
+		$scope.stop_filterchain_execution(exec.name, $scope.stop_filterchain_execution_cb);
+		$scope.start_filterchain_execution(exec.name, "generator", newname, exec.file_name, $scope.start_filterchain_execution_cb);
+		$scope.get_filterchain_info(newname, $scope.get_filterchain_info_cb);
 	}
 	
 }]);

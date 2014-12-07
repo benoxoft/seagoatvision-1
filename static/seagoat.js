@@ -171,6 +171,16 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
         .error($scope.default_error(cb))
     };
 
+	$scope.get_params_filterchain = function(execution_name, filter_name, cb) {
+		$http({
+		  url: "/api/get_params_filterchain",
+		  method: "POST",
+		  data: JSON.stringify({execution_name : execution_name, filter_name : filter_name }),
+		  headers: { 'Content-Type': 'application/json' }
+		}).success($scope.default_success(cb))
+        .error($scope.default_error(cb));
+	};
+
     $scope.get_params_media = function(media_name, cb) {
         $http.get("/api/get_params_media/" + media_name)
         .success($scope.default_success(cb))

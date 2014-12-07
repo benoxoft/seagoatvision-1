@@ -22,9 +22,11 @@
 					<div class="execution-tab ng-class:{active: $index==activeExecution}" ng-repeat="e in executions track by $index" ng-click="changeExecution($index)">{{e.name}}</div>
 					<div class="execution-tab add" ng-click="addExecution()">+</div>
 				</div>
-				<div id="content">
+				<div id="content" ng-show="executions.length <= 0">No execution, press + to create a new execution.</div>
+				<div id="content" ng-show="executions.length > 0">
 					<div id="left">
 						<div id="menu">
+							<h1 style="margin-bottom:0px;">Filter chain menu</h1>
 							<ul>
 								<li><a href="#" ng-click="newFilterChain()">New filter chain</a></li>
 								<li><a href="#" ng-click="toggleOpenChain()">Open filter chain</a></li>
@@ -47,8 +49,7 @@
 					</div>
 					<div id="right">
 						<!--<div>{{executions[activeExecution]}}</div>-->
-						<div ng-show="typeof(executions[activeExecution].filterChain) != 'undefined' && !displayOpenChain">
-							<a href="#" ng-click="console.log(typeof(executions[activeExecution].filterChain.name))">TO</a>
+						<div ng-show="executions[activeExecution].filterChain && !displayOpenChain">
 							<div ng-show="!displayEditTitle">
 								<h1 id="filterChain-title">
 									{{executions[activeExecution].filterChain.name}}
@@ -123,6 +124,9 @@
 								</div>
 								<div class="" ng-drop="true" ng-drop-success="onDropComplete($data,-1,$event)">Drop here</div>
 							</div>
+						</div>
+						<div ng-show="!executions[activeExecution].filterChain && !displayOpenChain">
+							Select an action in the left menu.
 						</div>
 						<div ng-show="displayOpenChain" ng-init="get_filterchain_list(get_filterchain_list_cb)">
 							<h1>Select a filter chain to open : </h1>
