@@ -173,7 +173,7 @@
 				exec.filterChain.media,
 				$scope.modify_filterchain_cb);
 			$scope.stop_filterchain_execution(exec.name, $scope.stop_filterchain_execution_cb);
-			$scope.start_filterchain_execution(exec.name, exec.media_name, exec.filterChain.newname, exec.file_name, $scope.start_filterchain_execution_cb);
+			$scope.start_filterchain_execution(exec.name, "generator", exec.filterChain.newname, exec.file_name, $scope.start_filterchain_execution_cb);
 				
 			exec.filterChain.name = exec.filterChain.newname;
 			delete exec.filterChain.newname;
