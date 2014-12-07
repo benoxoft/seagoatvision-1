@@ -47,12 +47,13 @@
 					</div>
 					<div id="right">
 						<!--<div>{{executions[activeExecution]}}</div>-->
-						<div ng-show="typeof(execution[activeExecution].filterChain) != 'undefined' && !displayOpenChain">
+						<div ng-show="typeof(executions[activeExecution].filterChain) != 'undefined' && !displayOpenChain">
+							<a href="#" ng-click="console.log(typeof(executions[activeExecution].filterChain.name))">TO</a>
 							<div ng-show="!displayEditTitle">
 								<h1 id="filterChain-title">
 									{{executions[activeExecution].filterChain.name}}
 								</h1>
-								<div style="float:left;" ng-show="typeof(execution[activeExecution].filterChain.name) != 'undefined'"><a href="#" ng-click="toggleEditTitle(false)">Edit</a></div>
+								<div style="float:left;"><a href="#" ng-click="toggleEditTitle(false)">Edit</a></div>
 							</div>
 							<div ng-show="displayEditTitle">
 								New name : <input type="text" style="width:50%;" ng-model="executions[activeExecution].filterChain.newname" />

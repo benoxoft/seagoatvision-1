@@ -89,12 +89,15 @@
 		else
 			$scope.executions[$scope.activeExecution].filterChain.filters.splice(ind,0,data);
 		//$scope.apply();
+		$scope.updateFilterchainToServer();
+		
 	};
 	
 	$scope.removeFilter=function(ind){
 		if( confirm("Are you sure you want to remove this filter from the chain ?") ){
 			$scope.executions[$scope.activeExecution].filterChain.filters.splice(ind,1);
 			//$scope.apply();
+			$scope.updateFilterchainToServer();
 		}
 	};
 	
@@ -107,6 +110,8 @@
 			$scope.executions[$scope.activeExecution].filterChain.filters.push(data);
 		else
 			$scope.executions[$scope.activeExecution].filterChain.filters.splice(newInd,0,data);
+		
+		$scope.updateFilterchainToServer();
 	};
 	
 	$scope.changeSelectedFilter=function(ind){
@@ -165,17 +170,8 @@
 			for(fname in exec.filterChain.filters) {
 				filters.push(exec.filterChain.filters[fname].name);
 			}
-			$scope.modify_filterchain(
-				exec.filterChain.name, 
-				exec.filterChain.newname, 
-				filters,
-				exec.filterChain.media,
-				$scope.modify_filterchain_cb);
-			$scope.stop_filterchain_execution(exec.name, $scope.stop_filterchain_execution_cb);
-			$scope.start_filterchain_execution(exec.name, "generator", exec.filterChain.newname, exec.file_name, $scope.start_filterchain_execution_cb);
-			$scope.get_filterchain_info(exec.filterChain.newname, $scope.get_filterchain_info_cb);
+			$scope.updateFilterchainToServer();
 			exec.filterChain.name = exec.filterChain.newname;
-			delete exec.filterChain.newname;
 		} else {
 			exec.filterChain.newname = exec.filterChain.name;
 		}
@@ -183,4 +179,25 @@
 		$scope.displayEditTitle = !$scope.displayEditTitle;
 	}
 
+	$scope.updateFilterchainToServer = function() {
+		var exec = $scope.executions[$scope.activeExecution];
+		var filters = [];
+		for(fname in exec.filterChain.filters) {
+			filters.push(exec.filterChain.filters[fname].name);
+		}
+		var newname = exec.filterChain.name;
+		if(exec.filterChain.newname != 'undefined') {
+			newname = exec.filterChain.newname;
+		}
+		$scope.modify_filterchain(
+			exec.filterChain.name, 
+			newname, 
+			filters,
+			exec.filterChain.media,
+			$scope.modify_filterchain_cb);
+			$scope.stop_filterchain_execution(exec.name, $scope.stop_filterchain_execution_cb);
+			$scope.start_filterchain_execution(exec.name, "generator", exec.filterChain.newname, exec.file_name, $scope.start_filterchain_execution_cb);
+			$scope.get_filterchain_info(exec.filterChain.newname, $scope.get_filterchain_info_cb);
+	}
+	
 }]);

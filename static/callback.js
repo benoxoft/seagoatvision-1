@@ -116,6 +116,7 @@ myApp.controller('callback', ['$scope', function($scope) {
     };
 
     $scope.get_params_filterchain_cb = function(data, status) {
+		console.log(data.execution_name);
 		var exec = $scope.executions.filter(function(obj){return obj.name === data.execution_name;})[0];			
 		var filter = exec.filterChain.filters.filter(function(obj){return obj.name === data.filter_name;})[0];
 		for(pname in data.params) {

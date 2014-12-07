@@ -119,9 +119,11 @@ def get_param_media(media_name, param_name):
 
 @app.route('/api/get_params_filterchain/<execution_name>/<filter_name>')
 def get_params_filterchain(execution_name, filter_name):
+    print execution_name
+    print filter_name
     params = c.get_params_filterchain(execution_name, filter_name)
     print params
-    return json.dumps({"execution_name" : execution_name, "filter_name" : filter_name, "params" : {k : v.serialize() for k, v in c.get_params_filterchain(execution_name, filter_name).items()}})
+    return json.dumps({"execution_name" : execution_name, "filter_name" : filter_name, "params" : {k : v.serialize() for k, v in params.items()}})
 
 @app.route('/api/get_params_media/<media_name>')
 def get_params_media(media_name):
