@@ -34,6 +34,7 @@ input[type="button"]{
 	padding-top:10px;
 	margin-right:2px;
 	float:left;
+	cursor:pointer;
 	/*-moz-border-radius: -10px;
 	-webkit-border-radius: -10px;*/
 	border-radius:10px 10px 0px 0px; /* future proofing */
@@ -46,11 +47,11 @@ input[type="button"]{
 }
 
 .execution-tab:hover{
-	background-color:#DDD;
+	background-color:#EEE;
 }
 
 #execution-div  .add{
-	width: 50px;
+	width: 40px;
 	/*background-image:url('images/tab-add.png');*/
 }
 
@@ -98,7 +99,7 @@ input[type="button"]{
 }
 
 .filter-list-item:hover{
-	background-color:#ddd;
+	background-color:#EEE;
 }
 
 #filter-list .last{
@@ -144,6 +145,7 @@ input[type="button"]{
 	background-color:#dddddd;
 	position:relative;
 	border-right:solid 1px black;
+	cursor:pointer;
 }
 
 #chain-filter-list .section-button .text{

@@ -52,7 +52,7 @@
 								<h1 id="filterChain-title">
 									{{executions[activeExecution].filterChain.name}}
 								</h1>
-								<div style="float:left;"><a href="#" ng-click="toggleEditTitle(false)">Edit</a></div>
+								<div style="float:left;" ng-show="typeof(execution[activeExecution].filterChain.name) != 'undefined'"><a href="#" ng-click="toggleEditTitle(false)">Edit</a></div>
 							</div>
 							<div ng-show="displayEditTitle">
 								New name : <input type="text" style="width:50%;" ng-model="executions[activeExecution].filterChain.newname" />
@@ -76,11 +76,11 @@
 											<td class="code section ng-hide" ng-show="code">
 												<div>
 													Execution code :<br/>
-													<textarea class="textarea">{{f.executionCode}}</textarea>
+													<textarea class="textarea">Available in a futur version.{{f.executionCode}}</textarea>
 												</div>
 												<div>
 													Working copy : <br/>
-													<textarea class="textarea">{{f.workingCopy}}</textarea>
+													<textarea class="textarea">Available in a futur version.{{f.workingCopy}}</textarea>
 												</div>
 												<div class="chain-filter-radios">
 													<input type="radio" ng-model="f.language" name="c" radiogroup="code-type">C++<br/>

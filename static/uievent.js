@@ -133,6 +133,7 @@
 	$scope.addExecution = function(){
 		var newNbExec = $scope.executions.length + 1;
 		$scope.executions.push({name:'Execution '+newNbExec});
+		$scope.activeExecution = newNbExec -1;
 	};
 	
 	$scope.newFilterChain = function(){
@@ -158,9 +159,7 @@
 	};
 
 	$scope.toggleEditTitle = function(save){
-
 		var exec = $scope.executions[$scope.activeExecution];
-		
 		if(save && $scope.displayEditTitle) {  
 			var filters = [];
 			for(fname in exec.filterChain.filters) {
