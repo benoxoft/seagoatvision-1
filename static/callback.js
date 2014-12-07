@@ -48,6 +48,7 @@ myApp.controller('callback', ['$scope', function($scope) {
 				$scope.get_execution_info(data[k], $scope.get_execution_info_cb);
 			}
 		}
+		$scope.executions = $scope.executions.sort(function(a, b){return a.name.toUpperCase() > b.name.toUpperCase()})
     };
 
     $scope.get_default_media_name_cb = function(data, status) {
@@ -61,7 +62,7 @@ myApp.controller('callback', ['$scope', function($scope) {
 				filters.push({name : k, description : data[k]});
 			}
 		}
-		$scope.filters = filters.sort(function(a, b){return a.name > b.name});
+		$scope.filters = filters.sort(function(a, b){return a.name.toUpperCase() > b.name.toUpperCase()});
 		console.log($scope.filters);
     };
 
@@ -85,7 +86,7 @@ myApp.controller('callback', ['$scope', function($scope) {
 				filterchains.push({name : data[k].name, doc : data[k].doc, filters : []});
 			}
 		}
-		$scope.filterChains = filterchains;
+		$scope.filterChains = filterchains.sort(function(a, b){return a.name.toUpperCase() > b.name.toUpperCase()});
     };
 
     $scope.get_fps_execution_cb = function(data, status) {
