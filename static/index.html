@@ -38,7 +38,7 @@
 						<div id="filters" ng-init="get_filter_list(get_filter_list_cb)">
 							<h1>Filter list</h1>
 							<div id="filter-list">
-								<div class="filter-list-item ng-binding ng-class:{selected: $index==selectedFilter}" draggable="false" ng-drag="true" ng-drag-data="f" ng-repeat="f in filters track by $index" data="{{f.file}}" ng-click="changeSelectedFilter($index)">{{f.name}}</div>
+								<div class="filter-list-item tooltip ng-binding ng-class:{selected: $index==selectedFilter}" draggable="false" ng-drag="true" ng-drag-data="f" ng-repeat="f in filters track by $index" data="{{f.description}}" ng-click="changeSelectedFilter($index)">{{f.name}}</div>
 							</div>
 							<div>
 								<input type="button" value="Add" onClick="alert('Available in a future version.')"/>

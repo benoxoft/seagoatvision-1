@@ -61,8 +61,8 @@ myApp.controller('callback', ['$scope', function($scope) {
 				filters.push({name : k, description : data[k]});
 			}
 		}
-		console.log(filters);
-		$scope.filters = filters;
+		$scope.filters = filters.sort(function(a, b){return a.name > b.name});
+		console.log($scope.filters);
     };
 
     $scope.get_filterchain_info_cb = function(data, status) {

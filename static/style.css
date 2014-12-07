@@ -128,6 +128,23 @@ input[type="button"]{
 	background-color:#DDF;
 }
 
+/* http://www.webdesignerdepot.com/2012/11/how-to-create-a-simple-css3-tooltip/*/
+.tooltip{
+	position:relative;
+}
+.tooltip:hover:before{
+    background: #333;
+    background: rgba(0,0,0,.8);
+    border-radius: 5px;
+    color: #fff;
+    content: attr(data);
+    padding: 5px 15px;
+    position: fixed;
+	margin-left:200px;
+    z-index: 98;
+    width: 220px;
+}
+
 #chain-filter-list{
 	width:100%;
 }
