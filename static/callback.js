@@ -116,18 +116,21 @@ myApp.controller('callback', ['$scope', function($scope) {
     };
 
     $scope.get_params_filterchain_cb = function(data, status) {
-		console.log(data.execution_name);
-		var exec = $scope.executions.filter(function(obj){return obj.name === data.execution_name;})[0];			
+		var exec = $scope.executions.filter(function(obj){return obj.name === data.execution_name;})[0];
 		var filter = exec.filterChain.filters.filter(function(obj){return obj.name === data.filter_name;})[0];
 		for(pname in data.params) {
 			var newp = data.params[pname]
-			for(gname in newp.lst_groups) {
-				var group = filter.params.filter(function(obj){return obj.name === gname;})[0]
-				if(group == 'undefined') {
-					group = {name:pname, type:'group', value:[]}
-					filter.params.push(group)
+			if(newp.lst_group.length > 0) {
+				for(idx in newp.lst_group) {
+					var group = filter.params.filter(function(obj){return obj.name === newp.lst_group[idx];})[0]
+					if(!group) {
+						group = {name:newp.lst_group[idx], type:'group', value:[]}
+						filter.params.push(group)
+					}
+					group.value.push({name:pname, type:'text', value:newp.value});
 				}
-				group.value.push({name:pname, type:'text', value:newp.value});
+			} else {
+				filter.params.push({name:pname, type:'text', value:newp.value});
 			}
 		}
 		

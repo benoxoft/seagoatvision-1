@@ -2,7 +2,11 @@ html, body {
     margin: 0px;
     padding: 2px;
     text-align: center;
+}
+
+*{
 	font-size:14px;
+	font-family:Arial, Helvetica, Sans-sans-serif;
 }
 
 h1{
@@ -75,6 +79,20 @@ input[type="button"]{
 	margin-left:250px;
 	float:left;
 	position:relative;
+}
+
+#menu h1{
+	margin-bottom:0px;
+}
+
+#menu ul{
+	margin-top:0px;
+	list-style-type:none;
+}
+
+#menu li:before { 
+    content: "\25ba\00a0";
+	margin-left:-30px;
 }
 
 #filterChain-title{
