@@ -70,7 +70,7 @@
 											<td class="video section" ng-hide="f.name == '-- empty filter --'">
 												<div class="filter-delete" ng-click="removeFilter($index)"><div style="margin:-2px -1px;">x</div></div>
 												<div class="filter-name" draggable="false" ng-drag="true" ng-drag-data="$index">{{f.name}}</div>
-												<div class="filter-active"><input type="checkbox" />Active</div>
+												<div class="filter-active"><input type="checkbox" ng-model="f.active" ng-change="updateActive($index, f.active)" />Active</div>
 												<div class="filter-down"><a href="#"><a href="#f{{$index + 1}}" ng-click="changeOrder($index,$index + 1)"><img src="images/d.png" alt="D" /></a></div>
 												<div class="filter-up"><a href="#"><a href="#f{{$index - 1}}" ng-click="changeOrder($index,$index - 1)"><img src="images/u.png" alt="U" /></a></div>
 												<div class="filter-video"><img src="{{f.feed}}" ng-click="videoClick($index)"/></div>
@@ -102,13 +102,16 @@
 											</td>
 											<td class="param section ng-hide" ng-show="params">
 												<div class="search"><div class="label">Search : </div><div class="input"><input type="text" name="search"></div></div>
+												<div class="clear"><img src="images/blank.gif"></div>
 												<div class="param-list">
 													<div ng-repeat="p in f.params track by $index" ng-switch="p.type">
 														<div class="param-group" ng-switch-when="group">
 															<h1>{{p.name}}</h1>
 															<div class="param-item" ng-repeat="v in p.value track by $index">
-																<div class="param-label">{{v.name}}</div>
-																<div class="param-input"><input type="text" ng-model="v.value"></div>
+																<div class="param-label" ng-hide="v.name == '_active_filter'">{{v.name}}</div>
+																<div class="param-label" ng-show="v.name == '_active_filter'">Active</div>
+																<div class="param-input" ng-hide="v.name == '_active_filter'"><input type="text" ng-model="v.value"></div>
+																<div class="param-input" ng-show="v.name == '_active_filter'"><input type="checkbox" ng-model="v.value" ng-init="f.active = v.value" ng-change="f.active = v.value"></div>
 															</div>
 															<div class="clear">&nbsp;</div>
 														</div>

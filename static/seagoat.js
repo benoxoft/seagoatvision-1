@@ -372,4 +372,11 @@ myApp.controller('api', ['$scope', '$http', function($scope, $http) {
 		$scope.testt($scope.testt_cb);
 	};
 	
+	$scope.findWithAttr = function(array, attr, value) {
+    for(var i = 0; i < array.length; i += 1) {
+        if(array[i][attr] === value) {
+            return i;
+        }
+    }
+}
 }]);

@@ -201,4 +201,7 @@
 		$scope.get_filterchain_info(newname, $scope.get_filterchain_info_cb);
 	}
 	
+	$scope.updateActive = function(ind, active){
+		$scope.executions[$scope.activeExecution].filterChain.filters[ind].params.filter(function(obj){return obj.name === 'Generic';})[0].value.filter(function(obj){return obj.name === '_active_filter';})[0].value = active;
+	}
 }]);
