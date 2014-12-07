@@ -27,19 +27,31 @@ input[type="button"]{
 .execution-tab{
 	width:100px;
 	height: 25px;
-	background-image:url('images/tab.png');
+	/*background-image:url('images/tab.png');*/
+	border:1px solid black;
+	border-bottom:none;
 	display:block;
 	padding-top:10px;
+	margin-right:2px;
 	float:left;
+	/*-moz-border-radius: -10px;
+	-webkit-border-radius: -10px;*/
+	border-radius:10px 10px 0px 0px; /* future proofing */
+	/*-khtml-border-radius: -10px; /* for old Konqueror browsers */
 }
 
 #execution-div .active{
-	background-image:url('images/tab-active.png');
+	/*background-image:url('images/tab-active.png');*/
+	background-color:#DDF;
+}
+
+.execution-tab:hover{
+	background-color:#DDD;
 }
 
 #execution-div  .add{
 	width: 50px;
-	background-image:url('images/tab-add.png');
+	/*background-image:url('images/tab-add.png');*/
 }
 
 #content{
@@ -86,7 +98,7 @@ input[type="button"]{
 }
 
 .filter-list-item:hover{
-	background-color:#ccc;
+	background-color:#ddd;
 }
 
 #filter-list .last{
@@ -94,7 +106,7 @@ input[type="button"]{
 }
 
 #filter-list .selected{
-	background-color:#99f;
+	background-color:#DDF;
 }
 
 #chain-filter-list{
