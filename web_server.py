@@ -1,3 +1,5 @@
+import cv2
+
 from flask import Flask, request, Response, redirect, jsonify
 app = Flask(__name__)
 import sys
@@ -38,10 +40,12 @@ def add_image_observer():
     execution_name = post.get("execution_name")
     filter_name = post.get("filter_name")
 
-    il = ImageListener()
-    if not observers[execution_name]:
+    if not observers.has_key(execution_name):
         observers[execution_name] = {}
-    observers[execution_name][filter_name] = il
+    if not observers[execution_name].has_key(filter_name):
+        observers[execution_name][filter_name] = ImageListener()
+
+    il = observers[execution_name][filter_name]
     
     c.add_image_observer(il.send, execution_name, filter_name)
     return json.dumps({"execution_name" : execution_name, "filter_name" : filter_name})
@@ -157,7 +161,7 @@ def remove_image_observer():
     execution_name = post.get("execution_name")
     filter_name = post.get("filter_name")
     observer = observers[execution_name][filter_name].send
-    return json.dumps(c.remove_image_observer(observer, execution_name, filter_name))
+    return json.dumps({"info" : c.remove_image_observer(observer, execution_name, filter_name), "execution_name" : execution_name, "filter_name" : filter_name})
 
 @app.route('/api/remove_output_observer/<execution_name>')
 def remove_output_observer(execution_name):
@@ -243,14 +247,13 @@ def default_call(method):
 class ImageListener:
     
     def __init__(self):
-        print "INIT CALLED"
         self.image = None
         self.evt = threading.Event()
 
     def send(self, output):
-        print "SEND CALLED"
         if output is None:
             return
+        output = cv2.resize(output, (320, 180))        
         img = Image.fromarray(output)
         buff = StringIO.StringIO()
         img.save(buff, 'bmp')
@@ -266,7 +269,6 @@ class ImageListener:
         while True:
             self.evt.clear()
             self.evt.wait()
-            print "YIELD"
             yield (b'--frame\r\n'
                    b'Content-Type: image/bmp\r\n\r\n' + self.image + b'\r\n')
     

@@ -204,7 +204,7 @@
 			$scope.modify_filterchain_cb);
 			
 		$scope.stop_filterchain_execution(exec.name, $scope.stop_filterchain_execution_cb);
-		$scope.start_filterchain_execution(exec.name, "generator", newname, exec.file_name, $scope.start_filterchain_execution_cb);
+		$scope.start_filterchain_execution(exec.name, "File", newname, "/home/benoit/test.avi", $scope.start_filterchain_execution_cb);
 		$scope.get_filterchain_info(newname, $scope.get_filterchain_info_cb);
 	}
 	

@@ -177,6 +177,7 @@ input[type="button"]{
 	width: 10px;
 	height: 17px;
 	background-color: #F66;
+	font-size:15px;
 	color: #FFF;
 	float: left;
 	padding: 0px 0px 0px 4px;
@@ -222,18 +223,26 @@ input[type="button"]{
 	cursor:pointer;
 }
 
+.chain-filter .filter-video img{
+	/*width:480px;
+	height:270px;
+	Pour la présentation : */
+	width:320px;
+	height:180px;
+}
+
 .chain-filter .filter-video .play{
 	/*width:480px;
 	height:270px;
 	Pour la présentation : */
-	width:80px;
+	width:70px;
 	height:45px;
 	border:solid 1px red;
 	background-color: red;
 	border-radius : 15px;
 	text-align:center;
 	margin-top:65px;
-	margin-left: 120px;
+	margin-left: 125px;
 	font-size : 36px;
 	color : white;
 }
