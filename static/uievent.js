@@ -160,10 +160,20 @@
 			//open
 			delete $scope.executions[$scope.activeExecution].filterChain;
 			$scope.executions[$scope.activeExecution].filterChain = data;
-			$scope.toggleOpenChain();
-			$scope.updateFilterchainToServer();
+			$scope.start_filterchain_execution($scope.executions[$scope.activeExecution].name, "File", data.name, "/home/benoit/test.avi", $scope.openFilterChain_cb);
 		}
 	};
+	
+	$scope.openFilterChain_cb = function(data, status) {
+		var exec = $scope.executions[$scope.activeExecution];
+		$scope.get_filterchain_info(exec.filterChain.name, $scope.openFilterChain_cb2);
+	};
+
+	$scope.openFilterChain_cb2 = function(data, status) {
+		$scope.get_filterchain_info_cb(data, status)
+		$scope.toggleOpenChain();
+		$scope.updateFilterchainToServer();
+	}
 	
 	$scope.toggleOpenChain = function(){
 		$scope.selectedFilterChain = -1;
