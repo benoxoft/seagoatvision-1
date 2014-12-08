@@ -35,7 +35,7 @@
 								<li><a href="#">Upload filter chain</a></li>
 							</ul>
 						</div>
-						<div id="filters" ng-init="get_filter_list(get_filter_list_cb)">
+						<div id="filters" ng-init="get_filter_list(get_filter_list_cb)" ng-hide="!executions[activeExecution].filterChain && !displayOpenChain">
 							<h1>Filter list</h1>
 							<div id="filter-list">
 								<div class="filter-list-item tooltip ng-binding ng-class:{selected: $index==selectedFilter}" draggable="false" ng-drag="true" ng-drag-data="f" ng-repeat="f in filters track by $index" data="{{f.description}}" ng-click="changeSelectedFilter($index)">{{f.name}}</div>
