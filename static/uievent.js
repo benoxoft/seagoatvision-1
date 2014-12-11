@@ -160,7 +160,7 @@
 			//open
 			delete $scope.executions[$scope.activeExecution].filterChain;
 			$scope.executions[$scope.activeExecution].filterChain = data;
-			$scope.start_filterchain_execution($scope.executions[$scope.activeExecution].name, "File", data.name, "/home/benoit/test.avi", $scope.openFilterChain_cb);
+			$scope.start_filterchain_execution($scope.executions[$scope.activeExecution].name, "Webcam", data.name, "", $scope.openFilterChain_cb);
 		}
 	};
 	
@@ -214,7 +214,7 @@
 			$scope.modify_filterchain_cb);
 			
 		$scope.stop_filterchain_execution(exec.name, $scope.stop_filterchain_execution_cb);
-		$scope.start_filterchain_execution(exec.name, "File", newname, "/home/benoit/test.avi", $scope.start_filterchain_execution_cb);
+		$scope.start_filterchain_execution(exec.name, "Webcam", newname, "", $scope.start_filterchain_execution_cb);
 		$scope.get_filterchain_info(newname, $scope.get_filterchain_info_cb);
 	}
 	
